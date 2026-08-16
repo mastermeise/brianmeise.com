@@ -1,0 +1,272 @@
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
+audio[controls], canvas, video { display: inline-block; *display: inline; *zoom: 1; }
+
+html { font-size: 100%; overflow-y: scroll; -webkit-overflow-scrolling: touch; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; background: url(../images/bkgd.jpg) repeat fixed; }
+
+body { margin: 0; padding: 0; border:none; font-size: 13px; line-height: 1.231;  }
+
+body, button, input, select, textarea { font-family: "arial", helvetica, sans-serif; color: #000; }
+
+::-moz-selection { background: #009e99; color: #000; text-shadow: none; }
+::selection { background: #009e99; color: #000; text-shadow: none; }
+
+
+/* =============================================================================
+   Links
+   ========================================================================== */
+
+a { color: #000; text-decoration: none; cursor: pointer; }
+a:visited { color: #000; }
+a:focus { outline: thin dotted; }
+a:hover, a:active { outline: 0; }
+a:hover { text-decoration: underline; }
+a:active { position: relative; top:1px; }
+
+
+
+/* =============================================================================
+   Typography
+   ========================================================================== */
+
+/* headers */
+h1, h2, h3, h4, h5 { text-transform: uppercase; font-weight: bold; margin: 0; }
+h1 { font-size: 48px; }
+h2 { font-size: 42px; }
+h3 { font-size: 22px; }
+
+
+abbr[title] { border-bottom: 1px dotted; }
+
+b, strong { font-weight: bold; }
+
+blockquote { margin: 1em 40px; }
+
+dfn { font-style: italic; }
+
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+
+ins { background: #ff9; color: #000; text-decoration: none; }
+
+mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
+
+/* Redeclare monospace font family: en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
+pre, code, kbd, samp { font-family: monospace, monospace; _font-family: 'courier new', monospace; font-size: 1em; }
+
+/* Improve readability of pre-formatted text in all browsers */
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+
+q { quotes: none; }
+q:before, q:after { content: ""; content: none; }
+
+small { font-size: 85%; }
+
+/* Position subscript and superscript content without affecting line-height: gist.github.com/413930 */
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+
+/* =============================================================================
+   Lists
+   ========================================================================== */
+
+ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
+nav ul, nav ol { list-style: none; margin: 0; padding: 0; }
+
+
+/* =============================================================================
+   Embedded content
+   ========================================================================== */
+
+/*
+ * Improve image quality when scaled in IE7
+ * code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/
+ */
+
+img { border: 0; -ms-interpolation-mode: bicubic; }
+
+/*
+ * Correct overflow displayed oddly in IE9 
+ */
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+
+/* =============================================================================
+   Figures
+   ========================================================================== */
+
+figure { margin: 0; }
+
+
+/* =============================================================================
+   Forms
+   ========================================================================== */
+
+form { margin: 0; }
+fieldset { border: 0; margin: 0; padding: 0; }
+legend { border: 0; *margin-left: -7px; padding: 0; }
+label { cursor: pointer; }
+button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; }
+button, input { line-height: normal; *overflow: visible; }
+button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; }
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; }
+input[type="search"] { -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+textarea { overflow: auto; vertical-align: top; }
+input:valid, textarea:valid {  }
+input:invalid, textarea:invalid { background-color: #f0dddd; }
+
+
+/* =============================================================================
+   Tables
+   ========================================================================== */
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+
+/* =============================================================================
+   Primary styles
+   Author: Brian Meise
+   ========================================================================== */
+
+#container { min-height: 736px; overflow: hidden;  }
+.iPhone { background: url(../images/bkgd_iphone.jpg) no-repeat 0 0; }
+.stripe { background: url(../images/bkgd_stripe.jpg) no-repeat 0 0; }
+#main { min-width: 1060px; padding-bottom:80px; }
+
+
+/* header */
+header { margin: 30px 0 0 0; min-width: 700px; }
+h1.logo{	
+	background: url(../images/fonzi-logo.png) no-repeat 0 0;
+	display: block;
+	height: 56px;
+	text-indent: -9999px;
+	width: 188px;
+	border: none; }
+header h1 { float: left; margin: 0 0 0 50px; }
+header nav { float: right; font-weight: bold; text-transform: uppercase; margin: 20px 0 30px 0; } 
+header nav ul li { float: left; margin: 0 30px 0 0; }
+.fb-like { position: relative; top: -4px; left:12px; }
+
+/*left column*/
+#leftcolumn { float: left; width: 379px; }
+.screenshots { margin: 114px 0 0 102px; float: left; width: 256px; height: 383px; position: relative;}
+.screenshots > img { position:absolute; top:0; left: 0; display:none; }
+.screenshots > img.active { display:block; }
+.screenshots > img.loading { position:absolute; top:190px; left: 118px; }
+.quote { width: 280px; float: right; margin: 135px 0 0 0; font-size: 22px; color: #666; font-style: italic; text-align: right; line-height: 30px; }
+
+
+/*Right Column */
+#rightcolumn { width: 640px; float: left; margin: 106px 0 0 30px; position: relative; }
+#btn_appstore { 
+	background: url(../images/btn_appstore.jpg) no-repeat 0 0;
+	display: block;
+	width: 177px;
+	height: 67px;
+	text-indent: -9999px;
+	border: none;
+	margin: 10px 0 0 0 }
+#btn_appstore:hover { background-position: 0 -67px; cursor: pointer; }
+#btn_appstore:active { background-position: 0 -134px; position: static; c }
+.smalltext { color: #fff; font-style: italic; font-size: 12px; margin: 10px 0; }
+#howitworks { margin: 140px 0 100px 0; }
+#howitworks h2 { margin:0 0 25px 0; }
+#howitworks ul { list-style: none; width: 310px; padding: 0; }
+#howitworks p { margin: 0 0 20px 0; font-size: 16px; line-height: 23px; }
+.green { color: #009e99; }
+.free { position: absolute; top:-58px; left:33px; }
+
+
+#how { margin: 140px 0 100px 0; }
+#how h2 { margin:0 0 10px 0; }
+#how dl dt { text-transform: uppercase; font-weight: bold; margin: 30px 0 0 0; font-size: 22px; }
+#how dl dd { font-size: 16px; margin: 12px 0; position: relative; left: -10px; }
+
+
+
+/*footer*/
+footer { background:url(../images/footer_bkgd.jpg) repeat-x; height: 152px; margin: 0; width: 100%; }
+footer.fixed { position: fixed; bottom: 0; }
+.footercontent { width: auto; margin: 0 auto 0; text-align: center; position: relative; top:-35px; }
+
+
+/*support page*/
+#faqs { margin: 60px 0 0 80px; width: 800px; }
+#faqs h2 { margin:0 0 25px 0; }
+#faqs ul { list-style: none; width: 300px; padding: 0; }
+#faqs p { margin: 0 0 20px 0; font-size: 16px; line-height: 23px; }
+
+
+
+/* =============================================================================
+   Non-semantic helper classes
+   Please define your styles before this section.
+   ========================================================================== */
+
+/* For image replacement */
+.ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }
+.ir br { display: none; }
+
+/* Hide for both screenreaders and browsers:
+   css-discuss.incutio.com/wiki/Screenreader_Visibility */
+.hidden { display: none; visibility: hidden; }
+
+/* Hide only visually, but have it available for screenreaders: by Jon Neal.
+  www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden */
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: drupal.org/node/897638 */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible { visibility: hidden; }
+
+/* Contain floats: nicolasgallagher.com/micro-clearfix-hack/ */ 
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+
+
+/* =============================================================================
+   PLACEHOLDER Media Queries for Responsive Design.
+   These override the primary ('mobile first') styles
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 480px) {
+  /* Style adjustments for viewports 480px and over go here */
+
+}
+
+@media only screen and (min-width: 768px) {
+  /* Style adjustments for viewports 768px and over go here */
+
+}
+
+
+/* =============================================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: www.phpied.com/delay-loading-your-print-css/
+   ========================================================================== */
+ 
+@media print {
+  * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: sanbeiji.com/archives/953 */
+  a, a:visited { color: #444 !important; text-decoration: underline; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }  /* Don't show links for images, or javascript/internal links */
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; } /* css-discuss.incutio.com/wiki/Printing_Tables */
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3{ page-break-after: avoid; }
+}

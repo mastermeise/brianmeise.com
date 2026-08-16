@@ -1,0 +1,101 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>Fonzi - A Mobile Jukebox</title>
+	<meta name="description" content="Fonzi is a mobile jukebox that lets the crowd control the music.">
+	<meta name="author" content="Brian Meise">
+	
+	<link rel="stylesheet" href="css/style.css">
+
+	<script src="js/libs/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=253159948053541";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div id="container" class="iPhone">
+<header>
+<h1 class="logo">Fonzi</h1>
+<nav><ul>
+<li><div class="fb-like" data-href="http://www.fonziapp.com" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div></li>
+<li><a href="/support">Support</a></li>
+<li><a href="mailto:team@fonziapp.com">Contact</a></li>
+</ul></nav>
+<div class="clearfix"></div>
+</header>
+<div id="main" role="main">
+	<div id="leftcolumn">
+		<div class="screenshots">
+			<img src="images/screenshots/Fonzi-ss-01.jpg" class="active" alt="Fonzi-ss-01" />
+			<img src="images/loading.gif" title="images/screenshots/Fonzi-ss-02.jpg" class="loading" alt="Fonzi-ss-02" />
+			<img src="images/loading.gif" title="images/screenshots/Fonzi-ss-03.jpg" class="loading" alt="Fonzi-ss-03" />
+			<img src="images/loading.gif" title="images/screenshots/Fonzi-ss-04.jpg" class="loading" alt="Fonzi-ss-04" />
+			<img src="images/loading.gif" title="images/screenshots/Fonzi-ss-05.jpg" class="loading" alt="Fonzi-ss-05" />
+			<img src="images/loading.gif" title="images/screenshots/Fonzi-ss-06.jpg" class="loading" alt="Fonzi-ss-06" />
+		</div>
+	</div><!--End #leftcolumn -->
+	<div id="rightcolumn">
+		
+		<img src="images/free.png" alt="free" width="" height="" class="free" />
+		<h1>A mobile jukebox</br> that lets the crowd</br> control the music</h1>
+		<a href="http://itunes.apple.com/us/app/fonzi/id477600899" id="btn_appstore">Available on the app store</a>
+		
+		<section id="how">
+			<h2>How It Works</h2>
+			<dl>
+			<dt>For Hosts</dt>
+			<dd>&bull; Create a Party In Fonzi.</dd>
+			<dd>&bull; Plug your iPhone into speakers and start a party.</dd>
+			<dd>&bull; Your iTunes library becomes the jukebox for the party to control.</dd>
+			<dt>For Guests</dt>
+			<dd>&bull; Find a party from the list of nearby parties.</dd>
+			<dd>&bull; Select songs to play from the hosts iTunes library.</dd>
+			<dd>&bull; Your top song request will play on your turn.</dd>				
+			</dl>
+		</section>
+	</div><!--End #rightcolumn -->
+	<div class="clearfix"></div>
+</div><!--End #Main --> 
+
+<footer>
+	<div class="footercontent">
+		<img src="images/app_icon.png" alt="app_icon" />
+		<p>Copyright &copy; 2011 Fonzi LLC. All Rights Reserved.</p>
+	</div>
+</footer>
+
+</div> <!--! end of #container -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+
+<!-- scripts concatenated and minified via ant build script-->
+<script src="js/plugins.js"></script>
+<script src="js/script.js"></script>
+<!-- end scripts-->
+
+<script>
+	var _gaq=[['_setAccount','UA-27144147-1'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
+	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+	s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+<!--[if lt IE 7 ]>
+	<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
+	<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
+<![endif]-->
+
+</body>
+</html>
