@@ -1,0 +1,412 @@
+/* ==========================================================================
+   brianmeise.com
+   No web fonts, no JS, no dependencies. One stylesheet, one request.
+   Hierarchy comes from weight, size and space — not from colour.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* One fixed identity — no light/dark variants. Deep wine ground, warm ivory
+     ink, one hot orange accent (the LegalZoom-ad palette; close cousin of the
+     retired BRAND.md poster tokens). Hierarchy is ivory at falling opacity —
+     thinner ink, not grey text. */
+  --bg:     #45091E;
+  --fg:     #F7EEE4;
+  --muted:  rgba(247, 238, 228, 0.75);
+  --faint:  rgba(247, 238, 228, 0.52);
+  --rule:   rgba(247, 238, 228, 0.22);
+  --hover:  rgba(247, 238, 228, 0.08);
+  --accent: #F4602C;   /* ~5.2:1 on the wine — fine at display sizes */
+
+  /* Crayon tones for the decorative doodles ONLY — never for type. The text
+     stays two-ink (ivory + accent); the illustrations get the extra colour,
+     which is exactly the Kika split: disciplined type, playful drawings. */
+  --gold: #F3B13C;
+  --rose: #EF8BA2;
+
+  /* body copy tone for the statement paragraph — a notch below full ivory */
+  --intro-muted: rgba(247, 238, 228, 0.82);
+
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
+  --measure: 44rem;
+}
+
+/* --------------------------------------------------------------------------
+   base
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 12vh 1.5rem 6rem;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis-weight: none;
+}
+
+main { max-width: var(--measure); margin: 0 auto; }
+
+/* --------------------------------------------------------------------------
+   intro
+   -------------------------------------------------------------------------- */
+
+/* The name and the bio are one typographic block — same size, same weight,
+   now at display scale: the paragraph IS the page. Hierarchy is colour only. */
+.intro {
+  font-size: clamp(1.7rem, 3.6vw + 0.4rem, 2.8rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.022em;
+}
+
+/* `font: inherit` takes size, weight, line-height and family from .intro in one
+   go, so the name cannot drift from the paragraphs — and it drops the UA's
+   default 2em bold, which is what would otherwise make an h1 larger. */
+h1 {
+  margin: 0 0 0.6em;
+  font: inherit;
+  color: var(--fg);
+}
+
+.bio {
+  margin: 0;
+  color: var(--intro-muted);
+  text-wrap: pretty;
+}
+
+.bio + .bio { margin-top: 0.75em; }
+
+/* colour is the only emphasis — weight already matches the surrounding text */
+.bio strong { color: var(--fg); font-weight: inherit; }
+
+/* --------------------------------------------------------------------------
+   mentions — inline pictogram + hover/focus photo peek
+   No JS. inline-block on .mention so the absolute peek has a stable box to
+   anchor to; a wrapped inline element gives fragmented positioning instead.
+   -------------------------------------------------------------------------- */
+
+.mention {
+  position: relative;
+  display: inline-block;
+}
+
+/* Accent word + accent pictogram read as one unit, the way the Sheets/Slides
+   icons sit inside the ChatGPT ad copy. Colour is the affordance at this
+   scale — a dotted underline under 2.8rem type reads as noise. */
+.mention-trigger {
+  font: inherit;
+  color: var(--accent);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.mention-trigger:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.14em;
+}
+
+/* Icons are filled chunky shapes now, not outlines — each element carries its
+   own fill/stroke attributes, so this class only does sizing and placement.
+   (Setting fill/stroke here would override those attributes: CSS beats
+   presentation attributes in the cascade.) */
+.pict {
+  width: 1.05em;
+  height: 1.05em;
+  margin-left: 0.18em;
+  vertical-align: -0.16em;
+  opacity: 0.95;
+}
+
+.mention-trigger:hover .pict { opacity: 1; }
+
+/* Free-floating doodles between words — decorative only, aria-hidden, no
+   interaction. Sized to sit in the text like Kika's interstitial drawings. */
+.doodle {
+  width: 1.12em;
+  height: 1.12em;
+  margin: 0 0.06em;
+  vertical-align: -0.16em;
+}
+
+/* The peek itself is only a positioning frame — no panel chrome. The photos
+   carry their own ring and shadow so they read as loose snapshots.
+   --peek-shift is set by the placement code in index.html when centring on the
+   word would push the group off-screen. Zero in the common case. */
+.peek {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.55rem);
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  pointer-events: none;   /* the peek is never a hover target itself */
+  visibility: hidden;
+  transform: translateX(calc(-50% + var(--peek-shift, 0px)));
+  /* hold visibility until the slots have animated out */
+  transition: visibility 0s linear 380ms;
+}
+
+/* .is-open is set by the tap handler in index.html — see the note there for why
+   hover and focus-within alone aren't enough on touch. */
+:is(.mention:hover, .mention:focus-within, .mention.is-open) .peek {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* Both photos start stacked on the same point and spring apart as they arrive.
+   The overshoot in the cubic-bezier is the spring; nothing is keyframed. */
+.peek-slot {
+  display: block;
+  opacity: 0;
+  transform: translateY(10px) scale(0.66);
+  transition: transform 460ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 160ms ease;
+}
+
+.peek-slot + .peek-slot { margin-left: -26px; }  /* the overlap */
+.peek-slot:nth-child(2) { z-index: 1; }          /* second photo lands on top */
+
+:is(.mention:hover, .mention:focus-within, .mention.is-open) .peek-slot {
+  opacity: 1;
+}
+
+:is(.mention:hover, .mention:focus-within, .mention.is-open) .peek-slot:nth-child(1) {
+  transform: translate(-7px, 0) rotate(-7deg) scale(1);
+}
+
+:is(.mention:hover, .mention:focus-within, .mention.is-open) .peek-slot:nth-child(2) {
+  transform: translate(7px, -2px) rotate(6deg) scale(1);
+  transition-delay: 70ms;                        /* the stagger */
+}
+
+/* Cursor-follow lives on the <img>, one layer inside the spring, so the two
+   can have completely different durations — a 460ms spring would make the
+   tracking feel like syrup. --px/--py come from the mousemove handler. */
+.peek-slot img {
+  display: block;
+  width: 68px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: var(--hover);
+  box-shadow: 0 0 0 3px var(--bg), 0 6px 16px rgb(0 0 0 / 0.17);
+  transform: translate(calc(var(--px, 0) * var(--depth, 1) * 10px),
+                       calc(var(--py, 0) * var(--depth, 1) * 6px));
+  transition: transform 240ms cubic-bezier(0.22, 0.9, 0.3, 1);
+}
+
+/* different travel per photo — the parallax is what sells the depth */
+.peek-slot:nth-child(1) img { --depth: 1.45; }
+.peek-slot:nth-child(2) img { --depth: 0.7; }
+
+/* --------------------------------------------------------------------------
+   section label
+   -------------------------------------------------------------------------- */
+
+h2 {
+  margin: 4.5rem 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 550;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* --------------------------------------------------------------------------
+   project list
+   Whole row is the link. Negative margin lets the hover tint bleed past the
+   measure without shifting the text out of alignment with the paragraphs.
+   -------------------------------------------------------------------------- */
+
+.projects {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--rule); /* closes the list; footer needs no rule of its own */
+}
+
+.projects li { border-top: 1px solid var(--rule); }
+
+.project {
+  display: block;
+  margin: 0 -0.75rem;
+  padding: 0.95rem 0.75rem 1.05rem;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 120ms ease;
+}
+
+.project-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.name {
+  font-weight: 550;
+  letter-spacing: -0.011em;
+}
+
+.kind {
+  font-size: 0.8125rem;
+  color: var(--faint);
+}
+
+/* pushes the year to the right edge without a second grid column */
+.year {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--faint);
+}
+
+.desc {
+  margin: 0.2rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+@media (hover: hover) {
+  .project:hover { background: var(--hover); }
+  .project:hover .name { text-decoration: underline; text-underline-offset: 0.18em; }
+}
+
+/* --------------------------------------------------------------------------
+   footer
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   newsletter
+   -------------------------------------------------------------------------- */
+
+/* The form stays at reading width even though the statement paragraph above it
+   runs wider — a 44rem-wide email field looks like a banner ad. */
+.subscribe { margin-top: 3.5rem; max-width: 34rem; }
+
+.subscribe-copy {
+  margin: 0 0 0.85rem;
+  max-width: 30rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.subscribe-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.subscribe-form input {
+  flex: 1 1 15rem;
+  min-width: 0;              /* lets the field shrink instead of overflowing the row */
+  padding: 0.5rem 0.7rem;
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+
+.subscribe-form input::placeholder { color: var(--faint); }
+
+.subscribe-form button {
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 550;
+  color: var(--bg);
+  background: var(--fg);
+  border: 1px solid var(--fg);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+
+.subscribe-form button:hover { opacity: 0.85; }
+
+/* --------------------------------------------------------------------------
+   footer
+   -------------------------------------------------------------------------- */
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.1rem;
+  margin-top: 3rem;
+  font-size: 0.875rem;
+  color: var(--faint);
+}
+
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--fg); text-decoration: underline; text-underline-offset: 0.18em; }
+
+/* --------------------------------------------------------------------------
+   utilities
+   -------------------------------------------------------------------------- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   a11y
+   -------------------------------------------------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   small screens
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 30rem) {
+  body { padding: 8vh 1.25rem 4rem; }
+  h2 { margin-top: 3.5rem; }
+
+  /* the year stays pinned right; only an unusually long name pushes it down */
+  .project-head { flex-wrap: wrap; gap: 0 0.5rem; }
+
+  /* smaller thumbnails keep the peek inside the viewport when the trigger
+     word sits near either edge of a narrow screen */
+  .peek-slot img { width: 56px; height: 56px; }
+  .peek-slot + .peek-slot { margin-left: -20px; }
+}
