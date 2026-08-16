@@ -47,7 +47,11 @@
 >       Google Workspace mail, so a `@brianmeise.com` address may be preferred
 > - [ ] Confirm the Attaboy URL — currently points at `mastermeise.github.io/attaboy/`
 > - [ ] Confirm Not So Fast's year (using 2012, the original extension)
-> - [ ] Commit and push; verify `/2017/` and `/archive/fonziapp/` resolve on the live domain
+> - [ ] **Push when ready — deliberately held back.** Everything is committed locally on
+>       `main` (64b8ef1 site rebuild, 3cb0520 recovered 2017/archive assets) but Brian
+>       chose 2026-08-16 NOT to push yet: pushing deploys straight to brianmeise.com via
+>       Pages, and the peek placeholders + dead subscribe form aren't ready for public.
+>       When pushing, verify `/2017/` and `/archive/fonziapp/` resolve on the live domain.
 > - [ ] Add a `.gitignore` for `.DS_Store`
 
 See [PRD.md](PRD.md) for full scope.
