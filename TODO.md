@@ -7,7 +7,8 @@
 >
 > **What's actually left:**
 > - [x] **v0.5 SHIPPED as the homepage, 2026-08-16.** `index.html` is now the deliberate
->       placeholder: 19-word bio (no apps sentence), one-ink red-orange, single mailto
+>       placeholder: 14-word bio (no apps sentence, no Hudson Valley clause), one-ink
+>       red-orange, single mailto
 >       footer, zero placeholder debt. **The full direction is parked at `/v1.html`**
 >       (noindexed) — every open item below about the bio, peeks, goof, or subscribe
 >       refers to `v1.html`. When v1 is polished: copy it over `index.html`, restore
