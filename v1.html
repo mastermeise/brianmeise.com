@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- v1 — the full direction being polished (peeks, doodles, subscribe). The live
+     homepage serves v0.5 until this is ready; when it is, copy this file over
+     index.html, restore the canonical/meta/title, and delete /v1.html. -->
+<title>Brian Meise (v1 preview)</title>
+<meta name="description" content="Brian Meise is the Director of Product Design at Sony Music, where we design software to empower record labels and artists.">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#45091E">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://brianmeise.com/">
+<meta property="og:title" content="Brian Meise">
+<meta property="og:description" content="Director of Product Design at Sony Music. We design software to empower record labels and artists.">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://brianmeise.com/">
+<link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+
+<main>
+
+  <!-- One block of type at a single size and weight. Hierarchy is colour only:
+       full-strength ink for the name and the role, muted for everything else. -->
+  <div class="intro">
+    <h1>Brian Meise</h1>
+
+    <!-- .doodle svgs are decorative interstitials, Kika-style: they sit BETWEEN
+         words, carry the crayon tones (--gold/--rose plus accent/ivory), and are
+         aria-hidden so screen readers get clean prose. Interactive mentions stay
+         accent-orange; doodles are the only place the extra colours appear. -->
+    <p class="bio">
+    <!-- Each .mention is: a text trigger + an inline pictogram + a hidden .peek of
+         thumbnails. Hover or keyboard-focus reveals the peek via styles.css; a tap
+         toggles it via the script below.
+
+         TO ADD REAL PHOTOS: swap each img src for your own file. All eight imgs
+         currently point at img/peek/placeholder.svg — two per mention: Dad (the
+         kids), Green Onions, Northern Sky, goof (music-video stills). Keep the
+         width/height attributes so nothing reflows while they load. Two thumbnails
+         per mention is the tuned number; three still fits, four starts overflowing
+         on a phone.
+
+         TO REDRAW A PICTOGRAM: replace the children of the <svg>. Each icon
+         carries its own fill/stroke attributes on a 24×24 viewBox — the
+         .pict/.doodle CSS does sizing only. -->
+      <span class="mention">
+        <button type="button" class="mention-trigger">Dad<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.7" cy="7.4" r="3.1" fill="currentColor"/><path d="M3.3 19.8c0-4.3 2-6.7 4.4-6.7s4.4 2.4 4.4 6.7z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><circle cx="16.9" cy="10.1" r="2.6" fill="currentColor"/><path d="M13.4 19.8c0-3.5 1.6-5.5 3.5-5.5s3.5 2 3.5 5.5z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></button>
+        <span class="peek" role="group" aria-label="Photos of my kids">
+          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
+          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
+        </span>
+      </span>.
+      Designer.
+      <strong>Director of Product Design at Sony Music</strong>
+      <svg class="doodle" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(-7 12 12)"><ellipse cx="7.8" cy="18" rx="3.2" ry="2.5" fill="var(--gold)"/><path d="M10.6 18.2V5.3c0-.5.3-.9.8-1l1-.3c.4-.1.9.1 1.1.5.7 1.3 2 1.8 3.2 2.9 1.3 1.2 1.6 2.9 1 4.7-.5-1.5-1.6-2.3-3.2-2.6-.8-.2-1.6-.6-1.9-1v9.7z" fill="var(--gold)" stroke="var(--gold)" stroke-width="1" stroke-linejoin="round"/></g></svg>.
+      Building my own apps —
+      <span class="mention">
+        <button type="button" class="mention-trigger">Green Onions<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.2 15.4c.4-3.3.2-6.7-.6-10M12 15.2V4.4M13.8 15.4c.4-3.1.6-6.2.4-9.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="12" cy="18.4" rx="3.3" ry="2.9" fill="currentColor"/></svg></button>
+        <span class="peek" role="group" aria-label="Green Onions app screens">
+          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
+          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
+        </span>
+      </span>, for runners, and
+      <span class="mention">
+        <button type="button" class="mention-trigger">Northern Sky<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.4l2.2 7.4 7.4 2.2-7.4 2.2-2.2 7.4-2.2-7.4-7.4-2.2 7.4-2.2z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg></button>
+        <span class="peek" role="group" aria-label="Northern Sky app screens">
+          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
+          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
+        </span>
+      </span>, for mornings
+      <svg class="doodle" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.6 15.2a6.4 6.4 0 0 1 12.8 0z" fill="var(--gold)"/><path d="M12 4.2v2.6M5.2 6.9l1.8 1.8M18.8 6.9L17 8.7" fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round"/><rect x="3.2" y="16.6" width="17.6" height="2.6" rx="1.3" fill="var(--rose)"/></svg>.
+      Sometimes a
+      <!-- HYBRID LINK, PENDING A URL: once the goof video is picked, turn the
+           button below into
+             <a class="mention-trigger" href="VIDEO_URL">
+           with the same children (word + svg). Hover still peeks the stills;
+           click plays the video. The script only wires tap-toggling onto
+           <button> triggers, so the anchor needs no JS change. On touch a tap
+           then navigates without the peek tease. accepted tradeoff. -->
+      <span class="mention">
+        <button type="button" class="mention-trigger">goof<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(-4 12 12)"><rect x="3.2" y="9.6" width="17.6" height="9.8" rx="1.5" fill="currentColor"/><g transform="rotate(-14 3.8 9)"><rect x="3.2" y="5.4" width="17.6" height="3.6" rx="1.2" fill="currentColor"/><path d="M7.4 5.6 6 8.8M11.8 5.6l-1.4 3.2M16.2 5.6l-1.4 3.2" stroke="var(--bg)" stroke-width="1.1" stroke-linecap="round" fill="none"/></g></g></svg></button>
+        <span class="peek" role="group" aria-label="Stills from music videos">
+          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
+          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
+        </span>
+      </span>,
+      always <a class="mention-trigger" href="/graveyard/">curious<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.4" cy="10.4" r="5.6" fill="none" stroke="currentColor" stroke-width="2.8"/><path d="M14.9 14.9l4.9 4.9" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg></a>,
+      usually in the Hudson Valley
+      <svg class="doodle" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(-4 12 12)"><rect x="6.1" y="10.8" width="11.8" height="8.8" rx="1.2" fill="var(--rose)"/><path d="M3.9 11.6 12 4.2l8.1 7.4z" fill="var(--accent)" stroke="var(--accent)" stroke-width="1.2" stroke-linejoin="round"/><rect x="15" y="5.6" width="2.3" height="3.2" rx="0.7" fill="var(--gold)"/><rect x="10.3" y="14" width="3.4" height="5.6" rx="1.5" fill="var(--bg)"/></g></svg>.
+    </p>
+  </div>
+
+  <!-- ====================================================================
+       NEWSLETTER — NOT WIRED UP YET.
+
+       `action` is a placeholder and will 404 on submit until replaced with a
+       real endpoint. Sign up with a provider, then paste their form action
+       here. Every provider below takes a POST with a field named `email`, so
+       nothing else in this markup needs to change.
+
+         Kit         https://app.kit.com/forms/<form-id>/subscriptions
+         Buttondown  https://buttondown.com/api/emails/embed-subscribe/<username>
+         Mailchimp   https://<user>.<dc>.list-manage.com/subscribe/post?u=…&id=…
+                     (also needs its hidden bot-guard input — copy the whole
+                      form from Mailchimp's embed screen)
+
+       MEASURING CONVERSION: in the provider's dashboard, set the post-subscribe
+       redirect to https://brianmeise.com/subscribed/ (that page exists). Then
+       conversion rate = pageviews of /subscribed/ ÷ pageviews of / in Cloudflare
+       Web Analytics. No JS, no pixel, no extra tooling.
+       ==================================================================== -->
+  <section class="subscribe" aria-labelledby="subscribe-copy">
+    <p class="subscribe-copy" id="subscribe-copy">
+      More are coming. Leave your email and I'll tell you when one's ready —
+      no schedule, no newsletter, just the launches.
+    </p>
+
+    <form class="subscribe-form"
+          action="https://app.kit.com/forms/YOUR_FORM_ID/subscriptions"
+          method="post">
+      <label class="visually-hidden" for="subscribe-email">Email address</label>
+      <input id="subscribe-email"
+             type="email"
+             name="email_address"
+             placeholder="you@example.com"
+             autocomplete="email"
+             required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- Projects are temporarily hidden while the statement-paragraph direction
+       settles. Remove the two `hidden` attributes to bring them back. -->
+  <h2 hidden>Projects</h2>
+
+  <ul class="projects" hidden>
+
+    <li>
+      <a class="project" href="https://mastermeise.github.io/attaboy/">
+        <span class="project-head">
+          <span class="name">Northern Sky</span>
+          <span class="kind">iOS app</span>
+          <span class="year">2026</span>
+        </span>
+        <p class="desc">
+          A 60-second morning check-in. Two questions about the day ahead, then one
+          about the day behind — did you do the thing you said you would?
+        </p>
+      </a>
+    </li>
+
+    <li>
+      <a class="project" href="https://greenonions.app">
+        <span class="project-head">
+          <span class="name">Green Onions</span>
+          <span class="kind">iOS app</span>
+          <span class="year">2026</span>
+        </span>
+        <p class="desc">
+          Time-stretches the music you already own to match your running cadence, in
+          real time and with the pitch intact. Offline, free, no account.
+        </p>
+      </a>
+    </li>
+
+    <li>
+      <a class="project" href="https://dmb247.com">
+        <span class="project-head">
+          <span class="name">DMB 24/7</span>
+          <span class="kind">Web</span>
+          <span class="year">2015</span>
+        </span>
+        <p class="desc">
+          Drops you into a random moment of a random live Dave Matthews Band show.
+          Deep tracks only.
+        </p>
+      </a>
+    </li>
+
+    <li>
+      <a class="project" href="https://not-so-fast.com">
+        <span class="project-head">
+          <span class="name">Not So Fast</span>
+          <span class="kind">Chrome extension</span>
+          <span class="year">2012</span>
+        </span>
+        <p class="desc">
+          Blocks the sites you lose hours to until you answer a few quiz questions —
+          so the time goes somewhere you'd actually choose.
+        </p>
+      </a>
+    </li>
+
+    <li>
+      <a class="project" href="/archive/fonziapp/">
+        <span class="project-head">
+          <span class="name">Fonzi</span>
+          <span class="kind">iOS app</span>
+          <span class="year">2011</span>
+        </span>
+        <p class="desc">
+          A mobile jukebox that let the crowd control the music. Plug in your phone,
+          and the room queues songs from your library.
+        </p>
+      </a>
+    </li>
+
+  </ul>
+
+  <footer>
+    <a href="mailto:mastermeise@gmail.com">Email</a>
+    <a href="https://github.com/mastermeise">GitHub</a>
+    <a href="/graveyard/">The graveyard</a>
+  </footer>
+
+</main>
+
+<script>
+// The peeks reveal on :hover and :focus-within in CSS, which covers mouse and
+// keyboard. Touch has no hover, and iOS Safari does not reliably move focus to a
+// <button> on tap — so without this the peeks are unreachable on a phone.
+// Everything still works with JS disabled on any device that has a pointer.
+(function () {
+  var mentions = [].slice.call(document.querySelectorAll('.mention'));
+  if (!mentions.length) return;
+
+  // Breathing room against the viewport edge. Generous because the sprung
+  // photos spread and rotate past their layout box, which offsetWidth misses.
+  var EDGE = 18;
+
+  // A peek is centred on its word, so a word near either edge would push the
+  // panel off-screen ("rugby" overflowed by 12px at 390px wide).
+  //
+  // This works from untransformed geometry on purpose: the mention's own rect
+  // and the peek's layout width. Reading the peek's getBoundingClientRect()
+  // instead would return whatever the transform transition is mid-way through,
+  // which silently produces a wrong shift when a peek is reopened quickly.
+  function place(m) {
+    var pk = m.querySelector('.peek');
+    var mr = m.getBoundingClientRect();
+    var vw = document.documentElement.clientWidth;
+    var w = pk.offsetWidth;                       // layout width, ignores transform
+    var left = mr.left + mr.width / 2 - w / 2;    // where centring would put it
+    var shift = 0;
+    if (left < EDGE) shift = EDGE - left;
+    else if (left + w > vw - EDGE) shift = (vw - EDGE) - (left + w);
+    pk.style.setProperty('--peek-shift', Math.round(shift) + 'px');
+  }
+
+  function closeAll() {
+    mentions.forEach(function (m) { m.classList.remove('is-open'); });
+  }
+
+  // Pointer position over the trigger, normalised to -1..1 on each axis and
+  // handed to CSS. The photos read it at different depths so they drift by
+  // different amounts, which is what makes the group feel layered.
+  function track(m, e) {
+    var r = m.getBoundingClientRect();
+    var pk = m.querySelector('.peek');
+    var nx = (e.clientX - (r.left + r.width / 2)) / ((r.width / 2) || 1);
+    var ny = (e.clientY - (r.top + r.height / 2)) / ((r.height / 2) || 1);
+    pk.style.setProperty('--px', Math.max(-1, Math.min(1, nx)).toFixed(3));
+    pk.style.setProperty('--py', Math.max(-1, Math.min(1, ny)).toFixed(3));
+  }
+
+  function untrack(m) {
+    var pk = m.querySelector('.peek');
+    pk.style.setProperty('--px', '0');
+    pk.style.setProperty('--py', '0');
+  }
+
+  mentions.forEach(function (m) {
+    // hover and keyboard reveal via CSS; both still need the placement pass
+    m.addEventListener('mouseenter', function () { place(m); });
+    m.addEventListener('focusin', function () { place(m); });
+    m.addEventListener('mousemove', function (e) { track(m, e); });
+    m.addEventListener('mouseleave', function () { untrack(m); });
+
+    // Only <button> triggers get the tap-toggle. An <a> trigger is a hybrid
+    // mention: hover still peeks on pointer devices, click follows the link —
+    // so on touch it navigates instead of teasing.
+    var trigger = m.querySelector('.mention-trigger');
+    if (trigger.tagName === 'BUTTON') {
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();             // don't trip the document handler below
+        var wasOpen = m.classList.contains('is-open');
+        closeAll();                      // only one peek open at a time
+        if (!wasOpen) { place(m); m.classList.add('is-open'); }
+      });
+    }
+  });
+
+  document.addEventListener('click', closeAll);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAll();
+  });
+})();
+</script>
+
+</body>
+</html>
