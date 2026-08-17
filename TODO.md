@@ -54,7 +54,7 @@
 >       3. In Kit, set the form's post-subscribe redirect to
 >          `https://brianmeise.com/subscribed/`.
 >       4. Conversion rate then reads as pageviews of `/subscribed/` ÷ pageviews of `/`
->          in Cloudflare Web Analytics. No JS or pixel needed.
+>          in GoatCounter (mastermeise.goatcounter.com). No JS or pixel needed.
 >       Note: Kit's free tier puts Kit branding on its forms/emails; removing it needs the
 >       $33/mo Creator plan. The field name is `email_address` (Kit's convention) — if you
 >       switch to Buttondown or Mailchimp, change it back to `email`.
