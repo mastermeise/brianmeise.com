@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Copy lab — Brian Meise</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="styles.css?v=2">
+<style>
+  /* Lab chrome only — everything typographic comes from styles.css so the
+     variants render exactly as they would on the homepage. */
+  .lab-head {
+    margin: 0 0 4rem;
+    font-size: 0.75rem;
+    font-weight: 550;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .variant { margin-bottom: 5.5rem; }
+
+  .tag {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin: 0 0 1.1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.8125rem;
+    color: var(--faint);
+  }
+
+  .tag b {
+    font-weight: 650;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  .tag .wc {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The name repeats above every candidate because that's how the paragraph
+     is actually read — the opening rhythm only judges true with it there. */
+  .labname { margin: 0 0 0.6em; color: var(--fg); }
+  .labname, .intro p { font: inherit; }
+
+  /* Orange marks where a peek-mention or link would hang. Not interactive here. */
+  .m { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<main>
+
+  <p class="lab-head">Copy lab, round 2 — orange = peek or link words · not linked from the site</p>
+
+  <section class="variant">
+    <p class="tag"><b>Draft</b> yours as sent, bracket notes removed <span class="wc">28 words</span></p>
+    <div class="intro">
+      <p class="labname">Brian Meise</p>
+      <p class="bio"><span class="m">Dad</span>. Designer. <strong>Director of Product Design at Sony&nbsp;Music</strong>. Also building apps like <span class="m">Green Onions</span>, for runners, and <span class="m">Northern Sky</span>, for mornings. Sometimes a <span class="m">goof</span> and always <span class="m">curious</span>.</p>
+    </div>
+  </section>
+
+  <section class="variant">
+    <p class="tag"><b>E</b> yours, tightened — "also…like" cut, goof line staccato <span class="wc">25 words</span></p>
+    <div class="intro">
+      <p class="labname">Brian Meise</p>
+      <p class="bio"><span class="m">Dad</span>. Designer. <strong>Director of Product Design at Sony&nbsp;Music</strong>. Building apps — <span class="m">Green Onions</span>, for runners, and <span class="m">Northern Sky</span>, for mornings. Sometimes a <span class="m">goof</span>, always <span class="m">curious</span>.</p>
+    </div>
+  </section>
+
+  <section class="variant">
+    <p class="tag"><b>F</b> Doodler middle — kills the Designer/Product-Design double <span class="wc">25 words</span></p>
+    <div class="intro">
+      <p class="labname">Brian Meise</p>
+      <p class="bio"><span class="m">Dad</span>. Doodler. <strong>Director of Product Design at Sony&nbsp;Music</strong>. Building apps — <span class="m">Green Onions</span>, for runners, and <span class="m">Northern Sky</span>, for mornings. Sometimes a <span class="m">goof</span>, always <span class="m">curious</span>.</p>
+    </div>
+  </section>
+
+  <section class="variant">
+    <p class="tag"><b>G — final, wired in</b> "my own" fixes the Sony-apps read <span class="wc">32 words</span></p>
+    <div class="intro">
+      <p class="labname">Brian Meise</p>
+      <p class="bio"><span class="m">Dad</span>. Designer. <strong>Director of Product Design at Sony&nbsp;Music</strong>. Building my own apps — <span class="m">Green Onions</span>, for runners, and <span class="m">Northern Sky</span>, for mornings. Sometimes a <span class="m">goof</span>, always <span class="m">curious</span>, usually in the Hudson Valley.</p>
+    </div>
+  </section>
+
+  <section class="variant">
+    <p class="tag"><b>H</b> same content as full sentences — the escape hatch if the fragments nag <span class="wc">29 words</span></p>
+    <div class="intro">
+      <p class="labname">Brian Meise</p>
+      <p class="bio">I'm a <span class="m">dad</span>, a designer, and the <strong>Director of Product Design at Sony&nbsp;Music</strong> — building <span class="m">Green Onions</span>, for runners, and <span class="m">Northern Sky</span>, for mornings. Sometimes a <span class="m">goof</span>, always <span class="m">curious</span>.</p>
+    </div>
+  </section>
+
+  <section class="variant">
+    <p class="tag"><b>Reference</b> the committed copy, for tone comparison <span class="wc">44 words</span></p>
+    <div class="intro">
+      <p class="labname">Brian Meise</p>
+      <p class="bio">I'm the <strong>Director of Product Design at Sony&nbsp;Music</strong>. Otherwise: <span class="m">two kids</span> loose in Tarrytown, <span class="m">rugby</span> and <span class="m">hockey</span> played well past the age of sense, and a steady output of stupid <span class="m">music videos</span> and apps like <span class="m">Green Onions</span> and <span class="m">Attaboy</span>.</p>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>

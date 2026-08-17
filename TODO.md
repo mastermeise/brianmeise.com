@@ -6,25 +6,39 @@
 > [PRD.md](PRD.md) and [BRAND.md](BRAND.md).
 >
 > **What's actually left:**
+> - [ ] **Decide if v0.5 ships first.** `/v05.html` (2026-08-16) is the simplified interim
+>       homepage: 19-word bio (no apps sentence), no mentions/peeks/links/doodles, and
+>       everything set in the accent red-orange on the wine. It has zero placeholder
+>       debt — no photos, no goof URL, no subscribe form — so it could go public today:
+>       copy `v05.html` over `index.html` (swap back the canonical/meta), push, keep
+>       iterating v1 here and in the labs. The full v1 stays in git either way.
 > - [ ] **Pick an icon style** at `/iconlab.html` (not linked from the site): A chunky
 >       flat (current), B ink line (all-ivory), C riso misprint, D sticker (die-cut +
 >       shadow; replaced the too-similar "clean geometric"), E emoji, F woodcut (SVG
 >       recreation of the Midjourney round — ink outline, crosshatch, brick/mustard/
 >       olive palette). Mention pictograms get redrawn to match the winner. Midjourney
 >       prompts are in `midjourney-prompts.md`.
-> - [ ] Copy is now ONE paragraph (44 words): drawings mention replaced by Green Onions
->       and Attaboy peek-mentions. With projects hidden, those two mentions are the only
->       project presence — consider making them real links (greenonions.app etc.)
->       instead of peek buttons.
-> - [ ] **Projects section is hidden** (two `hidden` attributes in `index.html`) while the
->       statement-paragraph direction settles — decide when/how it comes back.
+> - [x] ~~Copy~~ — settled 2026-08-16 in round 2 of the copy lab: "Dad. Designer.
+>       Director of Product Design at Sony Music. Building my own apps — Green Onions,
+>       for runners, and Northern Sky, for mornings. Sometimes a goof, always curious,
+>       usually in the Hudson Valley." (32 words). Peek-mentions: Dad (kids), Green
+>       Onions, Northern Sky, goof (music-video stills); "curious" is a real link to
+>       `/graveyard/`. Working file: `/copylab.html` (not linked from the site).
+> - [ ] **Projects section is hidden** (two `hidden` attributes in `index.html`). The old
+>       projects now live at `/graveyard/` (2017 edition, DMB 24/7, Not So Fast, Fonzi —
+>       linked from "curious" and the footer) and the live apps are bio mentions, so the
+>       hidden block is close to redundant — decide whether to delete it. Its Attaboy
+>       entry is renamed Northern Sky either way.
 > - [ ] Palette is now a single fixed identity (wine `#45091E` / ivory / orange `#F4602C`,
 >       from the LegalZoom-ad reference) — the light/dark auto-switch is gone. Revisit if
 >       a light variant is ever wanted.
-> - [ ] **Replace the peek placeholders with real photos.** All ten `<img>` tags in the
->       second bio paragraph point at `img/peek/placeholder.svg`. Two per mention:
->       kids, rugby, hockey, music videos, drawings. Keep the `width`/`height`
+> - [ ] **Replace the peek placeholders with real photos.** All eight `<img>` tags in the
+>       bio point at `img/peek/placeholder.svg`. Two per mention: Dad (the kids),
+>       Green Onions, Northern Sky, goof (music-video stills). Keep the `width`/`height`
 >       attributes so nothing reflows.
+> - [ ] **Pick the goof video and paste its URL.** "goof" is a peek-button for now; a
+>       comment in `index.html` shows the one-tag flip to a hybrid `<a>` (hover peeks,
+>       click plays the video). The tap-toggle script already skips anchor triggers.
 > - [x] ~~Redraw the pictograms~~ — done 2026-08-16: all icons are now filled chunky
 >       shapes (Kika-style). Mention icons ride `currentColor` (orange); the six
 >       decorative `.doodle` interstitials may also use `--gold`/`--rose`/`--fg`.
@@ -45,13 +59,15 @@
 >       switch to Buttondown or Mailchimp, change it back to `email`.
 > - [ ] Confirm the footer email — using `mastermeise@gmail.com`, but brianmeise.com has
 >       Google Workspace mail, so a `@brianmeise.com` address may be preferred
-> - [ ] Confirm the Attaboy URL — currently points at `mastermeise.github.io/attaboy/`
+> - [ ] Confirm the Northern Sky URL — the Attaboy rename is official (2026-08-16), but
+>       the hidden projects entry still points at `mastermeise.github.io/attaboy/`
 > - [ ] Confirm Not So Fast's year (using 2012, the original extension)
 > - [ ] **Push when ready — deliberately held back.** Everything is committed locally on
 >       `main` (64b8ef1 site rebuild, 3cb0520 recovered 2017/archive assets) but Brian
 >       chose 2026-08-16 NOT to push yet: pushing deploys straight to brianmeise.com via
 >       Pages, and the peek placeholders + dead subscribe form aren't ready for public.
->       When pushing, verify `/2017/` and `/archive/fonziapp/` resolve on the live domain.
+>       When pushing, verify `/graveyard/`, `/2017/` and `/archive/fonziapp/` resolve on
+>       the live domain.
 > - [ ] Add a `.gitignore` for `.DS_Store`
 
 See [PRD.md](PRD.md) for full scope.

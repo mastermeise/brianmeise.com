@@ -31,73 +31,64 @@
          aria-hidden so screen readers get clean prose. Interactive mentions stay
          accent-orange; doodles are the only place the extra colours appear. -->
     <p class="bio">
-      I'm the <strong>Director of Product Design at Sony Music</strong>
-      <svg class="doodle" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(-7 12 12)"><ellipse cx="7.8" cy="18" rx="3.2" ry="2.5" fill="var(--gold)"/><path d="M10.6 18.2V5.3c0-.5.3-.9.8-1l1-.3c.4-.1.9.1 1.1.5.7 1.3 2 1.8 3.2 2.9 1.3 1.2 1.6 2.9 1 4.7-.5-1.5-1.6-2.3-3.2-2.6-.8-.2-1.6-.6-1.9-1v9.7z" fill="var(--gold)" stroke="var(--gold)" stroke-width="1" stroke-linejoin="round"/></g></svg>.
-
     <!-- Each .mention is: a text trigger + an inline pictogram + a hidden .peek of
-         thumbnails. Hover or keyboard-focus reveals the peek. No JS — the reveal is
-         :hover / :focus-within in styles.css.
+         thumbnails. Hover or keyboard-focus reveals the peek via styles.css; a tap
+         toggles it via the script below.
 
-         TO ADD REAL PHOTOS: swap each img src for your own file. Everything currently
-         points at img/peek/placeholder.svg. Keep width/height on the tags so nothing
-         reflows while they load. Two thumbnails per mention is the tuned number;
-         three still fits, four starts overflowing on a phone.
+         TO ADD REAL PHOTOS: swap each img src for your own file. All eight imgs
+         currently point at img/peek/placeholder.svg — two per mention: Dad (the
+         kids), Green Onions, Northern Sky, goof (music-video stills). Keep the
+         width/height attributes so nothing reflows while they load. Two thumbnails
+         per mention is the tuned number; three still fits, four starts overflowing
+         on a phone.
 
-         TO REDRAW A PICTOGRAM: replace the <path>/<circle> children of the <svg>.
-         They inherit stroke colour and width from .pict, so authoring only needs
-         geometry on a 24×24 viewBox. -->
-      Otherwise:
+         TO REDRAW A PICTOGRAM: replace the children of the <svg>. Each icon
+         carries its own fill/stroke attributes on a 24×24 viewBox — the
+         .pict/.doodle CSS does sizing only. -->
       <span class="mention">
-        <button type="button" class="mention-trigger">two kids<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.7" cy="7.4" r="3.1" fill="currentColor"/><path d="M3.3 19.8c0-4.3 2-6.7 4.4-6.7s4.4 2.4 4.4 6.7z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><circle cx="16.9" cy="10.1" r="2.6" fill="currentColor"/><path d="M13.4 19.8c0-3.5 1.6-5.5 3.5-5.5s3.5 2 3.5 5.5z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="mention-trigger">Dad<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.7" cy="7.4" r="3.1" fill="currentColor"/><path d="M3.3 19.8c0-4.3 2-6.7 4.4-6.7s4.4 2.4 4.4 6.7z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><circle cx="16.9" cy="10.1" r="2.6" fill="currentColor"/><path d="M13.4 19.8c0-3.5 1.6-5.5 3.5-5.5s3.5 2 3.5 5.5z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></button>
         <span class="peek" role="group" aria-label="Photos of my kids">
           <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
           <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
         </span>
-      </span>
-      loose in Tarrytown
-      <svg class="doodle" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(-4 12 12)"><rect x="6.1" y="10.8" width="11.8" height="8.8" rx="1.2" fill="var(--rose)"/><path d="M3.9 11.6 12 4.2l8.1 7.4z" fill="var(--accent)" stroke="var(--accent)" stroke-width="1.2" stroke-linejoin="round"/><rect x="15" y="5.6" width="2.3" height="3.2" rx="0.7" fill="var(--gold)"/><rect x="10.3" y="14" width="3.4" height="5.6" rx="1.5" fill="var(--bg)"/></g></svg>,
-      <span class="mention">
-        <button type="button" class="mention-trigger">rugby<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(-35 12 12)"><ellipse cx="12" cy="12" rx="8.4" ry="5" fill="currentColor"/><path d="M8.8 12h6.4M10.4 10.5v3M13.6 10.5v3" fill="none" stroke="var(--bg)" stroke-width="1.1" stroke-linecap="round"/></g></svg></button>
-        <span class="peek" role="group" aria-label="Rugby photos">
-          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
-          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
-        </span>
-      </span>
-      and
-      <span class="mention">
-        <button type="button" class="mention-trigger">hockey<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.6 2.5l1.9-.3 3.4 11.7c.3 1 1.1 1.6 2.2 1.6h4.4c.9 0 1.5.6 1.5 1.5v.6c0 .9-.6 1.5-1.5 1.5h-5.2c-2.1 0-3.9-1.4-4.5-3.4L5.7 3z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/><ellipse cx="4.9" cy="20" rx="2.6" ry="1.2" fill="currentColor"/></svg></button>
-        <span class="peek" role="group" aria-label="Hockey photos">
-          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
-          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
-        </span>
-      </span>
-      played well past the age of sense
-      <svg class="doodle" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(-30 12 12)"><rect x="2.6" y="8.4" width="18.8" height="7.2" rx="3.6" fill="var(--gold)"/><rect x="9" y="8.4" width="6" height="7.2" fill="var(--fg)" opacity="0.5"/><circle cx="10.9" cy="10.7" r="0.6" fill="var(--bg)"/><circle cx="13.1" cy="10.7" r="0.6" fill="var(--bg)"/><circle cx="12" cy="12" r="0.6" fill="var(--bg)"/><circle cx="10.9" cy="13.3" r="0.6" fill="var(--bg)"/><circle cx="13.1" cy="13.3" r="0.6" fill="var(--bg)"/></g></svg>,
-      and a steady output of stupid
-      <span class="mention">
-        <button type="button" class="mention-trigger">music videos<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(-4 12 12)"><rect x="3.2" y="9.6" width="17.6" height="9.8" rx="1.5" fill="currentColor"/><g transform="rotate(-14 3.8 9)"><rect x="3.2" y="5.4" width="17.6" height="3.6" rx="1.2" fill="currentColor"/><path d="M7.4 5.6 6 8.8M11.8 5.6l-1.4 3.2M16.2 5.6l-1.4 3.2" stroke="var(--bg)" stroke-width="1.1" stroke-linecap="round" fill="none"/></g></g></svg></button>
-        <span class="peek" role="group" aria-label="Stills from music videos">
-          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
-          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
-        </span>
-      </span>
-      and apps like
+      </span>.
+      Designer.
+      <strong>Director of Product Design at Sony Music</strong>
+      <svg class="doodle" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(-7 12 12)"><ellipse cx="7.8" cy="18" rx="3.2" ry="2.5" fill="var(--gold)"/><path d="M10.6 18.2V5.3c0-.5.3-.9.8-1l1-.3c.4-.1.9.1 1.1.5.7 1.3 2 1.8 3.2 2.9 1.3 1.2 1.6 2.9 1 4.7-.5-1.5-1.6-2.3-3.2-2.6-.8-.2-1.6-.6-1.9-1v9.7z" fill="var(--gold)" stroke="var(--gold)" stroke-width="1" stroke-linejoin="round"/></g></svg>.
+      Building my own apps —
       <span class="mention">
         <button type="button" class="mention-trigger">Green Onions<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.2 15.4c.4-3.3.2-6.7-.6-10M12 15.2V4.4M13.8 15.4c.4-3.1.6-6.2.4-9.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="12" cy="18.4" rx="3.3" ry="2.9" fill="currentColor"/></svg></button>
         <span class="peek" role="group" aria-label="Green Onions app screens">
           <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
           <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
         </span>
-      </span>
-      and
+      </span>, for runners, and
       <span class="mention">
-        <button type="button" class="mention-trigger">Attaboy<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.8" y="3.8" width="16.4" height="16.4" rx="3.6" fill="currentColor"/><path d="M8.3 12.5l2.5 2.6 4.9-5.4" fill="none" stroke="var(--bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <span class="peek" role="group" aria-label="Attaboy app screens">
+        <button type="button" class="mention-trigger">Northern Sky<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.4l2.2 7.4 7.4 2.2-7.4 2.2-2.2 7.4-2.2-7.4-7.4-2.2 7.4-2.2z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg></button>
+        <span class="peek" role="group" aria-label="Northern Sky app screens">
           <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
           <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
         </span>
-      </span>.
-      <svg class="doodle" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12l-5.9 1.7 3 5.4-5.4-2.9L12 22.4l-1.7-6.2-5.4 2.9 3-5.4L2 12l5.9-1.7-3-5.4 5.4 2.9L12 1.6l1.7 6.2 5.4-2.9-3 5.4z" fill="var(--accent)" stroke="var(--accent)" stroke-width="1" stroke-linejoin="round"/></svg>
+      </span>, for mornings
+      <svg class="doodle" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.6 15.2a6.4 6.4 0 0 1 12.8 0z" fill="var(--gold)"/><path d="M12 4.2v2.6M5.2 6.9l1.8 1.8M18.8 6.9L17 8.7" fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round"/><rect x="3.2" y="16.6" width="17.6" height="2.6" rx="1.3" fill="var(--rose)"/></svg>.
+      Sometimes a
+      <!-- HYBRID LINK, PENDING A URL: once the goof video is picked, turn the
+           button below into
+             <a class="mention-trigger" href="VIDEO_URL">
+           with the same children (word + svg). Hover still peeks the stills;
+           click plays the video. The script only wires tap-toggling onto
+           <button> triggers, so the anchor needs no JS change. On touch a tap
+           then navigates without the peek tease. accepted tradeoff. -->
+      <span class="mention">
+        <button type="button" class="mention-trigger">goof<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(-4 12 12)"><rect x="3.2" y="9.6" width="17.6" height="9.8" rx="1.5" fill="currentColor"/><g transform="rotate(-14 3.8 9)"><rect x="3.2" y="5.4" width="17.6" height="3.6" rx="1.2" fill="currentColor"/><path d="M7.4 5.6 6 8.8M11.8 5.6l-1.4 3.2M16.2 5.6l-1.4 3.2" stroke="var(--bg)" stroke-width="1.1" stroke-linecap="round" fill="none"/></g></g></svg></button>
+        <span class="peek" role="group" aria-label="Stills from music videos">
+          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
+          <span class="peek-slot"><img src="/img/peek/placeholder.svg" alt="" width="68" height="68" loading="lazy" decoding="async"></span>
+        </span>
+      </span>,
+      always <a class="mention-trigger" href="/graveyard/">curious<svg class="pict" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.4" cy="10.4" r="5.6" fill="none" stroke="currentColor" stroke-width="2.8"/><path d="M14.9 14.9l4.9 4.9" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg></a>,
+      usually in the Hudson Valley
+      <svg class="doodle" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(-4 12 12)"><rect x="6.1" y="10.8" width="11.8" height="8.8" rx="1.2" fill="var(--rose)"/><path d="M3.9 11.6 12 4.2l8.1 7.4z" fill="var(--accent)" stroke="var(--accent)" stroke-width="1.2" stroke-linejoin="round"/><rect x="15" y="5.6" width="2.3" height="3.2" rx="0.7" fill="var(--gold)"/><rect x="10.3" y="14" width="3.4" height="5.6" rx="1.5" fill="var(--bg)"/></g></svg>.
     </p>
   </div>
 
@@ -149,7 +140,7 @@
     <li>
       <a class="project" href="https://mastermeise.github.io/attaboy/">
         <span class="project-head">
-          <span class="name">Attaboy</span>
+          <span class="name">Northern Sky</span>
           <span class="kind">iOS app</span>
           <span class="year">2026</span>
         </span>
@@ -221,7 +212,7 @@
   <footer>
     <a href="mailto:mastermeise@gmail.com">Email</a>
     <a href="https://github.com/mastermeise">GitHub</a>
-    <a href="/2017/">The 2017 version of this site</a>
+    <a href="/graveyard/">The graveyard</a>
   </footer>
 
 </main>
@@ -287,12 +278,18 @@
     m.addEventListener('mousemove', function (e) { track(m, e); });
     m.addEventListener('mouseleave', function () { untrack(m); });
 
-    m.querySelector('.mention-trigger').addEventListener('click', function (e) {
-      e.stopPropagation();               // don't trip the document handler below
-      var wasOpen = m.classList.contains('is-open');
-      closeAll();                        // only one peek open at a time
-      if (!wasOpen) { place(m); m.classList.add('is-open'); }
-    });
+    // Only <button> triggers get the tap-toggle. An <a> trigger is a hybrid
+    // mention: hover still peeks on pointer devices, click follows the link —
+    // so on touch it navigates instead of teasing.
+    var trigger = m.querySelector('.mention-trigger');
+    if (trigger.tagName === 'BUTTON') {
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();             // don't trip the document handler below
+        var wasOpen = m.classList.contains('is-open');
+        closeAll();                      // only one peek open at a time
+        if (!wasOpen) { place(m); m.classList.add('is-open'); }
+      });
+    }
   });
 
   document.addEventListener('click', closeAll);
