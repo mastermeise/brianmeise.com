@@ -6,12 +6,12 @@
 > [PRD.md](PRD.md) and [BRAND.md](BRAND.md).
 >
 > **What's actually left:**
-> - [ ] **Decide if v0.5 ships first.** `/v05.html` (2026-08-16) is the simplified interim
->       homepage: 19-word bio (no apps sentence), no mentions/peeks/links/doodles, and
->       everything set in the accent red-orange on the wine. It has zero placeholder
->       debt — no photos, no goof URL, no subscribe form — so it could go public today:
->       copy `v05.html` over `index.html` (swap back the canonical/meta), push, keep
->       iterating v1 here and in the labs. The full v1 stays in git either way.
+> - [x] **v0.5 SHIPPED as the homepage, 2026-08-16.** `index.html` is now the deliberate
+>       placeholder: 19-word bio (no apps sentence), one-ink red-orange, single mailto
+>       footer, zero placeholder debt. **The full direction is parked at `/v1.html`**
+>       (noindexed) — every open item below about the bio, peeks, goof, or subscribe
+>       refers to `v1.html`. When v1 is polished: copy it over `index.html`, restore
+>       the title/meta/canonical, delete `/v1.html`, push.
 > - [ ] **Pick an icon style** at `/iconlab.html` (not linked from the site): A chunky
 >       flat (current), B ink line (all-ivory), C riso misprint, D sticker (die-cut +
 >       shadow; replaced the too-similar "clean geometric"), E emoji, F woodcut (SVG
@@ -24,7 +24,7 @@
 >       usually in the Hudson Valley." (32 words). Peek-mentions: Dad (kids), Green
 >       Onions, Northern Sky, goof (music-video stills); "curious" is a real link to
 >       `/graveyard/`. Working file: `/copylab.html` (not linked from the site).
-> - [ ] **Projects section is hidden** (two `hidden` attributes in `index.html`). The old
+> - [ ] **Projects section is hidden** (two `hidden` attributes in `v1.html`). The old
 >       projects now live at `/graveyard/` (2017 edition, DMB 24/7, Not So Fast, Fonzi —
 >       linked from "curious" and the footer) and the live apps are bio mentions, so the
 >       hidden block is close to redundant — decide whether to delete it. Its Attaboy
@@ -37,7 +37,7 @@
 >       Green Onions, Northern Sky, goof (music-video stills). Keep the `width`/`height`
 >       attributes so nothing reflows.
 > - [ ] **Pick the goof video and paste its URL.** "goof" is a peek-button for now; a
->       comment in `index.html` shows the one-tag flip to a hybrid `<a>` (hover peeks,
+>       comment in `v1.html` shows the one-tag flip to a hybrid `<a>` (hover peeks,
 >       click plays the video). The tap-toggle script already skips anchor triggers.
 > - [x] ~~Redraw the pictograms~~ — done 2026-08-16: all icons are now filled chunky
 >       shapes (Kika-style). Mention icons ride `currentColor` (orange); the six
@@ -62,13 +62,12 @@
 > - [ ] Confirm the Northern Sky URL — the Attaboy rename is official (2026-08-16), but
 >       the hidden projects entry still points at `mastermeise.github.io/attaboy/`
 > - [ ] Confirm Not So Fast's year (using 2012, the original extension)
-> - [ ] **Push when ready — deliberately held back.** Everything is committed locally on
->       `main` (64b8ef1 site rebuild, 3cb0520 recovered 2017/archive assets) but Brian
->       chose 2026-08-16 NOT to push yet: pushing deploys straight to brianmeise.com via
->       Pages, and the peek placeholders + dead subscribe form aren't ready for public.
->       When pushing, verify `/graveyard/`, `/2017/` and `/archive/fonziapp/` resolve on
->       the live domain.
-> - [ ] Add a `.gitignore` for `.DS_Store`
+> - [x] ~~Push when ready~~ — **pushed 2026-08-16, the site is LIVE.** brianmeise.com
+>       serves v0.5; verified same day against the Pages build of 49a6429: `/`,
+>       `/v1.html`, `/graveyard/`, `/2017/`, and `/archive/fonziapp/` all resolve.
+>       The old hold (placeholder peeks, dead subscribe form) now only gates promoting
+>       v1 over `index.html`, not the site being public.
+> - [x] ~~Add a `.gitignore` for `.DS_Store`~~ — done 2026-08-16
 
 See [PRD.md](PRD.md) for full scope.
 
