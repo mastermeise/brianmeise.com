@@ -13,6 +13,14 @@
 >       (noindexed) — every open item below about the bio, peeks, goof, or subscribe
 >       refers to `v1.html`. When v1 is polished: copy it over `index.html`, restore
 >       the title/meta/canonical, delete `/v1.html`, push.
+> - [x] ~~Favicon~~ — done 2026-08-23: a chunky grotesque "B", wine letter on the accent
+>       ground (the more legible of the two — the wine-ground version sinks into dark tab
+>       strips). Drawn geometry, not a font outline, so nothing is licensed in. Source of
+>       truth is `img/favicon.svg`; `img/favicon-16.png`, `-32.png`, `apple-touch-icon.png`
+>       and the root `favicon.ico` are all rasterised from it — regenerate rather than edit
+>       them by hand. Linked from every current page; the root `.ico` covers the untouched
+>       `2017/` and `archive/` relics. To flip the colours, swap the two `fill` values in
+>       the SVG and re-rasterise.
 > - [ ] **Pick an icon style** at `/iconlab.html` (not linked from the site): A chunky
 >       flat (current), B ink line (all-ivory), C riso misprint, D sticker (die-cut +
 >       shadow; replaced the too-similar "clean geometric"), E emoji, F woodcut (SVG

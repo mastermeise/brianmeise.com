@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- brianmeise.com — the site's two inks: accent ground, wine letter.
+       The "B" is drawn geometry, not a font outline. -->
+  <rect width="1024" height="1024" fill="#F4602C"/>
+  <path fill="#45091E" fill-rule="evenodd" d="M273,157 L475,157 C593,157 688,227 688,313 C688,399 630,469 559,469 C665,469 751,546 751,642 C751,766 627,867 475,867 L273,867 Z M431,267 L475,267 C521,267 559,300 559,340 C559,381 521,414 475,414 L431,414 Z M431,524 L475,524 C553,524 616,574 616,636 C616,697 553,747 475,747 L431,747 Z"/>
+</svg>
