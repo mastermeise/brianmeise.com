@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["9MR3KMSZ75.com.bmeise.amigos"],
+        "components": [{ "/": "/amigos/join/*", "comment": "Amigos group invites" }]
+      }
+    ]
+  }
+}
