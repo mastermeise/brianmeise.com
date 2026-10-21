@@ -50,8 +50,11 @@
     --page-angle: 180deg;
     --ink: oklch(.2 .02 95);
     --ink-soft: oklch(.51 .024 95);
-    --w-bold: 760;
-    --w-text: 450;
+    --w-bold: 620;
+    --w-text: 490;
+    --big: 22.5;
+    --big-track: 0;
+    --big-lh: 1.22;
     --radius: 14;
     --card-angle: 135deg;
     --card-blur: none;
@@ -64,7 +67,7 @@
     min-height: 100dvh;
     background: var(--page);
     color: var(--ink);
-    font-family: "Host Grotesk", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    font-family: var(--font, "Host Grotesk"), -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
   }
   /* The page gradient sits on a fixed layer so it never repeats on scroll
@@ -94,12 +97,20 @@
   .intro p,
   .projects h2 {
     margin: 0;
-    font-size: calc(22.5 * var(--u));
+    font-size: calc(var(--big) * var(--u));
     font-weight: var(--w-bold);
-    line-height: 1.32;
-    letter-spacing: -.012em;
+    line-height: var(--big-lh);
+    letter-spacing: var(--big-track);
   }
   .intro p { color: var(--ink-soft); }
+  /* Names (yours and the apps') can take their own face, the way Djinn sets
+     names in Anton capitals. Off unless the lab picks it. */
+  .intro h1, .card:not(.signup) .name {
+    font-family: var(--name-font, inherit);
+    font-weight: var(--name-weight, var(--w-bold));
+    text-transform: var(--name-case, none);
+    letter-spacing: var(--name-track, var(--big-track));
+  }
   .projects h2 { margin: calc(36 * var(--u)) 0 calc(14 * var(--u)); }
 
   .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: calc(12 * var(--u)); }
@@ -145,10 +156,10 @@
     grid-area: name;
     align-self: baseline;
     margin: 0;
-    font-size: calc(22.5 * var(--u));
+    font-size: calc(var(--big) * var(--u));
     font-weight: var(--w-bold);
-    line-height: 1.32;
-    letter-spacing: -.012em;
+    line-height: var(--big-lh);
+    letter-spacing: var(--big-track);
   }
   .kind {
     grid-area: kind;
@@ -212,7 +223,7 @@
     color: var(--page);
     font: inherit;
     font-size: calc(15 * var(--u));
-    font-weight: calc(var(--w-bold) - 100);
+    font-weight: max(500, calc(var(--w-bold) - 100));
     cursor: pointer;
     transition: transform .12s ease-out;
   }
@@ -238,10 +249,10 @@
     place-items: center;
     margin: 0;
     padding: 0 calc(16 * var(--u));
-    font-size: calc(22.5 * var(--u));
+    font-size: calc(var(--big) * var(--u));
     font-weight: var(--w-bold);
-    line-height: 1.32;
-    letter-spacing: -.012em;
+    line-height: var(--big-lh);
+    letter-spacing: var(--big-track);
     text-align: center;
     color: var(--card-ink, var(--ink));
   }
@@ -263,10 +274,10 @@
   .contact-row { position: relative; display: inline-block; margin: 0; }
   .email {
     display: inline-block;
-    font-size: calc(22.5 * var(--u));
+    font-size: calc(var(--big) * var(--u));
     font-weight: var(--w-bold);
-    line-height: 1.32;
-    letter-spacing: -.012em;
+    line-height: var(--big-lh);
+    letter-spacing: var(--big-track);
     color: var(--ink);
     text-decoration: underline;
     text-decoration-thickness: .08em;
@@ -304,10 +315,10 @@
   .copy.is-done { color: var(--ink); }
   .copyright {
     margin: calc(20 * var(--u)) 0 0;
-    font-size: calc(22.5 * var(--u));
+    font-size: calc(var(--big) * var(--u));
     font-weight: var(--w-bold);
-    line-height: 1.32;
-    letter-spacing: -.012em;
+    line-height: var(--big-lh);
+    letter-spacing: var(--big-track);
     color: var(--ink-soft);
   }
   .visually-hidden {
@@ -426,6 +437,9 @@
   .presets { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
   .presets button { display: flex; align-items: center; gap: 7px; padding: 5px; text-align: left; }
   .presets button[aria-pressed="true"] { box-shadow: inset 0 0 0 1.5px var(--l-fg); }
+  .fonts { flex-wrap: wrap; }
+  .fonts button[aria-pressed="true"] { box-shadow: inset 0 0 0 1.5px var(--l-fg); }
+  .readout .ok { color: #15803d; }
   .note { margin: 8px 0 0; color: var(--l-muted); min-height: 3em; }
 
   .swatch {
@@ -618,7 +632,10 @@ const BASE = {
   spread: 1, cL: .93, cC: .045, cA: 1, blur: 0,
   cGL: 0, cGH: 0, cAng: 135,
   glow: 0, border: 0, shadow: 0, radius: 14,
-  inkC: .02, soft: .5, wBold: 760, wText: 450,
+  inkC: .02, soft: .5, wBold: 620, wText: 490,
+  font: 0,   // index into FONTS; 0 is what's live
+  big: 22.5, // the big type's size, in u
+  track: 0, lh: 1.22,   // the big type's tracking (em) and line height
   h0: 258, l0: 0, c0: 0,
   h1: 130, l1: 0, c1: 0,
   h2: 213, l2: 0, c2: 0,
@@ -627,7 +644,7 @@ const BASE = {
 };
 
 const PRESETS = [
-  { name: 'Your pick', note: 'Your pick (2026-10-20): Even tints, grey text at 86%, Host Grotesk at 760 bold / 450 text.',
+  { name: 'Your pick', note: 'Your pick (2026-10-20): Even tints, grey text at 86%, Host Grotesk at 620 bold / 490 text, tracking 0, line 1.22 (2026-10-21).',
     s: { soft: .86 } },
   { name: 'Mockup', note: 'Your mockup as drawn. Card lightness runs .85 → .92 and the yellow has twice the chroma of the blue, so each card shouts at a different volume.',
     s: { bgH: 167, bgL: .905, bgC: .041, cL: .877, cC: .055, radius: 10, inkC: 0, soft: .7,
@@ -649,6 +666,57 @@ const PRESETS = [
 ];
 
 // [key, label, min, max, step, kind]; a bare string is a subheading.
+/* ---- Fonts ----
+   The page's font comes from --font. Host Grotesk is linked in <head>
+   (it's what's live); the others load from Google Fonts on first pick.
+   Presets don't change the font. */
+const FONTS = [
+  { name: 'Host Grotesk', q: 'Host+Grotesk:wght@300..800', note: 'What’s live (620 bold, 490 text). Variable, so any weight is exact.' },
+  { name: 'Poppins', q: 'Poppins:wght@400;500;600;700;800', note: 'Poppins only comes in steps of 100: bold 760 shows as 800 (700 or less shows 700), text 450 shows as 500 (400 shows 400).' },
+  { name: 'Instrument Sans', q: 'Instrument+Sans:wght@400..700', note: 'Variable 400–700, so bold tops out at 700.' },
+  { name: 'DM Sans', q: 'DM+Sans:opsz,wght@9..40,300..800', note: 'Variable, with optical sizes.' },
+  { name: 'Red Hat Display', q: 'Red+Hat+Display:wght@300..900', note: 'Variable 300–900.' },
+  { name: 'Inter', q: 'Inter:wght@300..800', note: 'Variable 300–800.' },
+  { name: 'Anton names (Djinn)', face: 'Host Grotesk', q: 'Anton', names: 'Anton',
+    note: 'Djinn’s pairing: your name and the app names in Anton capitals (it has one weight), everything else in Host Grotesk. Djinn sets its Host Grotesk lighter, at 400–500; try Bold weight 500.' },
+];
+// Colour presets leave the type alone.
+const TYPE_KEYS = ['font', 'big', 'wBold', 'wText', 'track', 'lh'];
+const typeOf = s => Object.fromEntries(TYPE_KEYS.map(k => [k, s[k]]));
+const fontLoads = { 0: Promise.resolve() };
+function loadFont(i) {
+  return fontLoads[i] ??= new Promise(done => {
+    const link = Object.assign(document.createElement('link'), {
+      rel: 'stylesheet', href: `https://fonts.googleapis.com/css2?family=${FONTS[i].q}&display=swap` });
+    link.onload = link.onerror = () => done();
+    document.head.append(link);
+  });
+}
+
+/* The layout rules from the README, checked live for the current font,
+   weights and copy. Sizes scale with the column, so what holds here
+   holds at every width. */
+let layoutRun = 0;
+async function checkLayout() {
+  const run = ++layoutRun, f = FONTS[S.font] || FONTS[0], face = f.face || f.name;
+  await loadFont(S.font);
+  await Promise.all([document.fonts.load(`${S.wBold} 20px "${face}"`), document.fonts.load(`${S.wText} 15px "${face}"`),
+    f.names && document.fonts.load(`400 20px "${f.names}"`)]);
+  await new Promise(r => requestAnimationFrame(r));
+  if (run !== layoutRun) return;
+  const lines = el => Math.round(el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight));
+  const bio = document.querySelector('.intro p'), text = bio.firstChild;
+  const top = word => { const i = text.textContent.indexOf(word), r = document.createRange(); r.setStart(text, i); r.setEnd(text, i + word.length); return r.getBoundingClientRect().top; };
+  const checks = [
+    ['descriptions two lines', [...document.querySelectorAll('.desc')].every(d => lines(d) === 2)],
+    ['bio breaks after “curious,”', lines(bio) === 2 && top('sometimes') > top('curious,') + 5],
+    ['titles one line', [...document.querySelectorAll('.name')].every(n => lines(n) === 1)],
+    ['email row fits', document.querySelector('.copy').getBoundingClientRect().right <= document.querySelector('.cards').getBoundingClientRect().right + 1],
+  ];
+  lab.querySelector('.readout').innerHTML = `<b>${f.name}</b>: ` + checks.map(([label, ok]) =>
+    `<span class="${ok ? 'ok' : 'warn'}">${ok ? '✓' : '✗'} ${label}</span>`).join(' · ');
+}
+
 const SCHEMA = [
   ['Page', [
     ['bgH', 'Hue', 0, 360, 1, 'hue'],
@@ -679,6 +747,9 @@ const SCHEMA = [
     ['soft', 'Grey text', 0, 1, .01, 'pct'],
     ['wBold', 'Bold weight', 500, 800, 10, 'int'],
     ['wText', 'Text weight', 300, 600, 10, 'int'],
+    ['big', 'Big type', 16, 26, .1, 'u'],
+    ['track', 'Big tracking', -.05, .03, .001, 'em'],
+    ['lh', 'Big line', 1.05, 1.5, .01, 'x'],
   ]],
 ];
 const APP_ROWS = i => [
@@ -770,6 +841,15 @@ function render() {
   root.setProperty('--radius', S.radius);
   root.setProperty('--w-bold', S.wBold);
   root.setProperty('--w-text', S.wText);
+  root.setProperty('--big', S.big);
+  root.setProperty('--big-track', S.track + 'em');
+  root.setProperty('--big-lh', S.lh);
+  const f = FONTS[S.font] || FONTS[0];
+  root.setProperty('--font', `"${f.face || f.name}"`);
+  for (const [k, v] of [['--name-font', f.names && `"${f.names}"`], ['--name-weight', f.names && '400'],
+                        ['--name-case', f.names && 'uppercase'], ['--name-track', f.names && '.01em']])
+    v ? root.setProperty(k, v) : root.removeProperty(k);
+  checkLayout();
   const pageDark = S.bgL + S.bgGL / 2 < .6;
   root.setProperty('--slot-edge', pageDark ? 'rgb(255 255 255 / .2)' : `rgb(${k.ink.rgb.join(' ')} / .16)`);
   root.setProperty('--field', pageDark ? 'rgb(255 255 255 / .08)' : 'rgb(255 255 255 / .75)');
@@ -806,7 +886,7 @@ function loadHash() {
   if (![...p.keys()].length) return false;
   S = { ...BASE };
   for (const [key, v] of p) if (key in BASE && isFinite(+v)) S[key] = +v;
-  const i = PRESETS.findIndex(pr => Object.keys(BASE).every(key => Math.abs(({ ...BASE, ...pr.s })[key] - S[key]) < 1e-4));
+  const i = PRESETS.findIndex(pr => Object.keys(BASE).every(key => TYPE_KEYS.includes(key) || Math.abs(({ ...BASE, ...pr.s })[key] - S[key]) < 1e-4));
   activePreset = i < 0 ? null : i;
   return true;
 }
@@ -815,7 +895,7 @@ function loadHash() {
 const lab = document.querySelector('.lab');
 const fmt = (kind, v) => ({
   hue: Math.round(v) + '°', deg: Math.round(v) + '°', px: Math.round(v) + 'px',
-  pct: Math.round(v * 100) + '%', int: String(Math.round(v)),
+  pct: Math.round(v * 100) + '%', int: String(Math.round(v)), u: (+v).toFixed(1) + 'u', em: (+v).toFixed(3).replace(/^(-?)0/, '$1') + 'em', x: (+v).toFixed(2),
   signed: (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(3).replace(/^0/, ''),
 }[kind] ?? (+v).toFixed(3).replace(/^0/, ''));
 
@@ -838,6 +918,10 @@ lab.innerHTML = `
   <div class="presets">${PRESETS.map((p, i) =>
     `<button type="button" data-preset="${i}" aria-pressed="false">${swatch(compute({ ...BASE, ...p.s }))}${p.name}</button>`).join('')}</div>
   <p class="note"></p>
+  <h3>Font</h3>
+  <div class="app-tools fonts">${FONTS.map((f, i) => `<button type="button" data-font="${i}" aria-pressed="false">${f.name}</button>`).join('')}</div>
+  <div class="app-tools"><button type="button" data-act="djinn" title="Host Grotesk Regular, tracked tight, like Djinn's screen titles">Djinn titles</button><button type="button" data-act="sitetype" title="Host Grotesk 760, what's live">Back to live type</button></div>
+  <p class="note font-note"></p>
   <div class="readout"></div>
   ${SCHEMA.map(([title, rows]) => `<h3>${title}</h3>` +
     rows.map(r => typeof r === 'string' ? `<h4>${r}</h4>` : row(r)).join('')).join('')}
@@ -870,13 +954,8 @@ function syncPanel(k) {
   lab.querySelector('.note').textContent = activePreset != null
     ? PRESETS[activePreset].note
     : 'Edited. Save it to keep it next to the others, or Copy link.';
-  // Worst-case contrast: the bio against both ends of the page, and each
-  // card's grey text against both ends of its own fill.
-  const bio = Math.min(contrast(k.soft, k.page1), contrast(k.soft, k.page2));
-  const desc = Math.min(...k.cards.flatMap(c => [
-    contrast(c.cSoft, over(c.fill, k.page1)), contrast(c.cSoft, over(c.fill2, k.page2))]));
-  const mark = r => r >= 4.5 ? `<b>${r.toFixed(1)}:1</b>` : `<b class="warn">${r.toFixed(1)}:1 low</b>`;
-  lab.querySelector('.readout').innerHTML = `Grey text contrast: bio ${mark(bio)} · cards ${mark(desc)}`;
+  lab.querySelectorAll('[data-font]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.font === S.font)));
+  lab.querySelector('.font-note').textContent = (FONTS[S.font] || FONTS[0]).note;
 }
 
 lab.addEventListener('input', e => {
@@ -888,7 +967,7 @@ lab.addEventListener('input', e => {
 });
 
 function applyPreset(i) {
-  S = { ...BASE, ...PRESETS[i].s };
+  S = { ...BASE, ...PRESETS[i].s, ...typeOf(S) };
   activePreset = i;
   render();
 }
@@ -913,6 +992,7 @@ function copyCSS() {
   const slug = n => n.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const lines = [
     `/* v5 palette: ${location.href} */`,
+    `/* font: ${(FONTS[S.font] || FONTS[0]).name}, bold ${S.wBold}, text ${S.wText}, big type ${S.big}u, tracking ${S.track}em, line ${S.lh} */`,
     `:root {`,
     `  --page: ${hex(k.page1)};`,
     ...(S.bgGL || S.bgGH ? [`  --page-2: ${hex(k.page2)};  /* gradient end, ${S.bgAng}deg */`] : []),
@@ -960,11 +1040,16 @@ lab.addEventListener('click', e => {
     return;
   }
   if (t.dataset.signup) return t.dataset.signup === 'error' ? setSignup('idle', SIGNUP_ERROR) : setSignup(t.dataset.signup);
+  if (t.dataset.font != null) { S.font = +t.dataset.font; return render(); }
   if (t.dataset.preset != null) return applyPreset(+t.dataset.preset);
   if (t.dataset.saved != null) { S = { ...BASE, ...readSaved()[+t.dataset.saved] }; activePreset = null; return render(); }
   switch (t.dataset.act) {
     case 'hide': return setOpen(false);
     case 'shuffle': return shuffle();
+    // Djinn's largeTitle: Host Grotesk Regular, 34/40, -0.9pt. Here at 23u,
+    // the largest the email row allows at that weight and tracking.
+    case 'djinn': Object.assign(S, { font: 0, wBold: 400, track: -.0265, lh: 1.18, big: 23 }); return render();
+    case 'sitetype': Object.assign(S, typeOf(BASE)); return render();
     case 'save': writeSaved([...readSaved(), { ...S }].slice(-24)); renderSaved(); return;
     case 'css': return copy(copyCSS(), t);
     case 'link': saveHash(); return setTimeout(() => copy(location.href, t), 160);
