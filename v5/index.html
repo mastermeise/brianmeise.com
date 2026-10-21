@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- ======================================================================
+     VERSION 5 (started 2026-10-20): Brian's phone mockup, coded up. It has
+     the name, a one-line bio, and one card per project with its real app
+     icon. The page is plain; the color lab panel on the right (or the
+     "Colors" button on a phone) drives every color through CSS variables.
+     The lab works in OKLCH, so cards can share one lightness and chroma
+     and differ only in hue, which is what makes them sit together. State
+     lives in the URL hash, so a link reproduces a combo exactly.
+     Icons are copied from the app projects at 240px:
+       northern-sky  ~/Dev/claude/attaboy/ios/NorthernSky/Assets.xcassets
+       green-onions  ~/Dev/claude/cadenceplayer/.../Assets.xcassets
+       not-so-fast   ~/Dev/claude/not-so-fast/site/icon-512.png
+       dmb247        built here: the dmb247 repo's images/logo.png split into
+                     "DMB" over "24/7" on near-black (#1F1D1B); DMB has no
+                     square icon of its own
+     The last card is a sign-up headline and form (to a Google Sheet).
+     Promoted to the homepage (/index.html) on 2026-10-20 with the lab
+     stripped and "Your pick" written in as fixed colours. This page stays
+     as the lab: tune here, then copy values into /index.html by hand.
+     Not linked from the site and noindexed.
+     ====================================================================== -->
+
+<title>Brian Meise (v5 preview)</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F7F5EF">
+
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/img/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300..800&display=swap">
+
+<style>
+  /* ---- The page ---------------------------------------------------------
+     Everything color-related is a variable. The lab overwrites them; the
+     values here are Brian's pick (2026-10-20: "Even tints", grey text at
+     86%) so the page stands on its own. */
+  :root {
+    --page: oklch(.975 .008 95);
+    --page-2: var(--page);
+    --page-angle: 180deg;
+    --ink: oklch(.2 .02 95);
+    --ink-soft: oklch(.51 .024 95);
+    --w-bold: 760;
+    --w-text: 450;
+    --radius: 14;
+    --card-angle: 135deg;
+    --card-blur: none;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--page);
+    color: var(--ink);
+    font-family: "Host Grotesk", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* The page gradient sits on a fixed layer so it never repeats on scroll
+     and frosted cards have something to blur. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(var(--page-angle) in oklab, var(--page), var(--page-2));
+  }
+
+  /* Everything inside the column is sized in --u: one pixel of the design
+     at a 343px column (a 375px phone minus its gutters). Because type,
+     icons and padding all scale with the column's width, every line breaks
+     at the same word on every screen, so each description is always two
+     lines. Desktop is the phone layout scaled up to --max. */
+  .site {
+    --max: 440px;
+    --u: calc(100cqi / 343);
+    max-width: calc(var(--max) + 32px);
+    margin: 0 auto;
+    padding: max(env(safe-area-inset-top), clamp(40px, 9vh, 104px)) 16px 72px;
+    container-type: inline-size;
+  }
+  .intro h1,
+  .intro p,
+  .projects h2 {
+    margin: 0;
+    font-size: calc(22.5 * var(--u));
+    font-weight: var(--w-bold);
+    line-height: 1.32;
+    letter-spacing: -.012em;
+  }
+  .intro p { color: var(--ink-soft); }
+  .projects h2 { margin: calc(36 * var(--u)) 0 calc(14 * var(--u)); }
+
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: calc(12 * var(--u)); }
+  .card {
+    --card: oklch(.93 .045 258);
+    --card-2: var(--card);
+    --glow: transparent;
+    display: grid;
+    grid-template-columns: calc(54 * var(--u)) 1fr auto;
+    grid-template-areas: "icon name kind" "icon desc desc";
+    column-gap: calc(16 * var(--u));
+    padding: calc(14 * var(--u)) calc(16 * var(--u)) calc(16 * var(--u)) calc(14 * var(--u));
+    border-radius: calc(var(--radius) * var(--u));
+    color: var(--card-ink, var(--ink));
+    text-decoration: none;
+    background:
+      radial-gradient(circle calc(240 * var(--u)) at calc(41 * var(--u)) calc(41 * var(--u)), var(--glow), transparent),
+      linear-gradient(var(--card-angle) in oklab, var(--card), var(--card-2));
+    box-shadow: var(--card-edge, 0 0 #0000), var(--card-shadow, 0 0 #0000);
+    -webkit-backdrop-filter: var(--card-blur);
+    backdrop-filter: var(--card-blur);
+    transition: transform .18s cubic-bezier(.2, .8, .2, 1), box-shadow .18s ease-out;
+  }
+  @media (hover: hover) {
+    a.card:hover { transform: translateY(-2px); }
+  }
+  a.card:active { transform: scale(.985); }
+  .card:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) {
+    .card { transition: none; }
+    a.card:hover, a.card:active { transform: none; }
+  }
+
+  .icon {
+    grid-area: icon;
+    width: calc(54 * var(--u));
+    height: calc(54 * var(--u));
+    border-radius: 23%;
+    box-shadow: 0 0 0 .5px rgb(0 0 0 / .12);
+  }
+  /* App names and the sign-up headline match the intro exactly. */
+  .name {
+    grid-area: name;
+    align-self: baseline;
+    margin: 0;
+    font-size: calc(22.5 * var(--u));
+    font-weight: var(--w-bold);
+    line-height: 1.32;
+    letter-spacing: -.012em;
+  }
+  .kind {
+    grid-area: kind;
+    align-self: baseline;
+    padding-left: calc(12 * var(--u));
+    font-size: calc(15 * var(--u));
+    font-weight: var(--w-text);
+    white-space: nowrap;
+    color: var(--card-soft, var(--ink-soft));
+  }
+  .desc {
+    grid-area: desc;
+    min-height: 3.1em;
+    margin: calc(3 * var(--u)) 0 0;
+    font-size: calc(15 * var(--u));
+    font-weight: var(--w-text);
+    line-height: 1.55;
+    color: var(--card-soft, var(--ink-soft));
+    text-wrap: balance;
+  }
+
+  /* The last card is the sign-up: white (it's the fifth card in the lab,
+     whitened by its own lightness and chroma offsets), no icon, so no glow,
+     and just a centred headline over the form. "More soon." is grey like
+     the bio. */
+  .card.signup {
+    grid-template-columns: 1fr;
+    grid-template-areas: "name" "form";
+    background: linear-gradient(var(--card-angle) in oklab, var(--card), var(--card-2));
+  }
+  .card.signup .name { text-align: center; }
+  .card.signup .lead { color: var(--card-soft, var(--ink-soft)); }
+  .signup-form {
+    grid-area: form;
+    display: flex;
+    gap: calc(8 * var(--u));
+    margin-top: calc(12 * var(--u));
+  }
+  .signup-form input {
+    flex: 1;
+    min-width: 0;
+    height: calc(44 * var(--u));
+    padding: 0 calc(12 * var(--u));
+    border: 0;
+    border-radius: calc(10 * var(--u));
+    background: var(--field, rgb(255 255 255 / .75));
+    box-shadow: inset 0 0 0 1px var(--slot-edge, rgb(0 0 0 / .14));
+    color: var(--card-ink, var(--ink));
+    font: inherit;
+    font-size: max(16px, calc(15 * var(--u)));
+  }
+  .signup-form input::placeholder { color: var(--card-soft, var(--ink-soft)); opacity: .8; }
+  .signup-form input:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+  .signup-form button {
+    flex: none;
+    height: calc(44 * var(--u));
+    padding: 0 calc(16 * var(--u));
+    border: 0;
+    border-radius: calc(10 * var(--u));
+    background: var(--card-ink, var(--ink));
+    color: var(--page);
+    font: inherit;
+    font-size: calc(15 * var(--u));
+    font-weight: calc(var(--w-bold) - 100);
+    cursor: pointer;
+    transition: transform .12s ease-out;
+  }
+  .signup-form button:active { transform: scale(.97); }
+  .signup-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .signup-note {
+    grid-area: note;
+    margin: calc(8 * var(--u)) 0 0;
+    font-size: calc(13 * var(--u));
+    text-align: center;
+    color: var(--card-soft, var(--ink-soft));
+  }
+  .signup-note:empty { display: none; }
+
+  /* States: idle (the form), sending (the button dims), done ("Boom! Talk
+     soon." in the big type, centred over the card; the form and headline
+     stay in the layout but invisible, so the card keeps its exact height). */
+  .card.signup { position: relative; }
+  .signup-thanks {
+    position: absolute;
+    inset: 0;
+    display: none;
+    place-items: center;
+    margin: 0;
+    padding: 0 calc(16 * var(--u));
+    font-size: calc(22.5 * var(--u));
+    font-weight: var(--w-bold);
+    line-height: 1.32;
+    letter-spacing: -.012em;
+    text-align: center;
+    color: var(--card-ink, var(--ink));
+  }
+  .card.signup[data-state="done"] > .name,
+  .card.signup[data-state="done"] > .signup-form { visibility: hidden; }
+  .card.signup[data-state="done"] .signup-thanks {
+    display: grid;
+    animation: signup-in .35s cubic-bezier(.2, .8, .2, 1) both;
+  }
+  @keyframes signup-in { from { opacity: 0; scale: .96; } }
+  @media (prefers-reduced-motion: reduce) { .card.signup .signup-thanks { animation: none; } }
+  .card.signup[data-state="sending"] .signup-form button { opacity: .5; pointer-events: none; }
+  .card.signup:has(.signup-note:not(:empty)) { grid-template-areas: "name" "form" "note"; }
+  /* Footer, centred: the address (a mailto, so it opens a new email) with
+     a copy button hanging off its right edge, so the address itself sits on
+     the centre line. The copyright is the grey line below, same size and
+     weight as the bio. */
+  .contact { margin-top: calc(48 * var(--u)); text-align: center; }
+  .contact-row { position: relative; display: inline-block; margin: 0; }
+  .email {
+    display: inline-block;
+    font-size: calc(22.5 * var(--u));
+    font-weight: var(--w-bold);
+    line-height: 1.32;
+    letter-spacing: -.012em;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: .08em;
+    text-underline-offset: .18em;
+    text-decoration-color: color-mix(in oklab, var(--ink) 30%, transparent);
+    transition: text-decoration-color .15s ease-out;
+  }
+  .copy {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    translate: 0 -50%;
+    display: grid;
+    place-items: center;
+    width: calc(40 * var(--u));
+    height: calc(40 * var(--u));
+    margin-left: calc(2 * var(--u));
+    padding: 0;
+    border: 0;
+    border-radius: calc(10 * var(--u));
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: color .15s ease-out, background-color .15s ease-out, scale .12s ease-out;
+  }
+  @media (hover: hover) {
+    .email:hover { text-decoration-color: var(--ink); }
+    .copy:hover { color: var(--ink); background: color-mix(in oklab, var(--ink) 7%, transparent); }
+  }
+  .copy:active { scale: .9; }
+  .copy:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+  .copy svg { width: calc(20 * var(--u)); height: calc(20 * var(--u)); }
+  .copy .done, .copy.is-done .idle { display: none; }
+  .copy.is-done .done { display: block; }
+  .copy.is-done { color: var(--ink); }
+  .copyright {
+    margin: calc(20 * var(--u)) 0 0;
+    font-size: calc(22.5 * var(--u));
+    font-weight: var(--w-bold);
+    line-height: 1.32;
+    letter-spacing: -.012em;
+    color: var(--ink-soft);
+  }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* ---- The lab ----------------------------------------------------------
+     Its own neutral chrome, following the system theme, so it never tints
+     what you're judging. */
+  .lab {
+    --l-bg: rgb(250 250 249 / .9);
+    --l-fg: #1b1d22;
+    --l-muted: #6b6f77;
+    --l-line: rgb(0 0 0 / .1);
+    --l-chip: rgb(0 0 0 / .05);
+    --l-thumb: #fff;
+    --rainbow: linear-gradient(to right,
+      oklch(.75 .12 0), oklch(.75 .12 30), oklch(.75 .12 60), oklch(.75 .12 90),
+      oklch(.75 .12 120), oklch(.75 .12 150), oklch(.75 .12 180), oklch(.75 .12 210),
+      oklch(.75 .12 240), oklch(.75 .12 270), oklch(.75 .12 300), oklch(.75 .12 330),
+      oklch(.75 .12 360));
+    position: fixed;
+    z-index: 10;
+    top: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: 320px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 14px 14px 20px;
+    border-radius: 14px;
+    background: var(--l-bg);
+    color: var(--l-fg);
+    box-shadow: 0 0 0 1px var(--l-line), 0 12px 40px rgb(0 0 0 / .14);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    backdrop-filter: blur(24px) saturate(1.4);
+    font: 12px/1.35 -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-color-scheme: dark) {
+    .lab {
+      --l-bg: rgb(30 31 35 / .9);
+      --l-fg: #eceae4;
+      --l-muted: #9da1a9;
+      --l-line: rgb(255 255 255 / .12);
+      --l-chip: rgb(255 255 255 / .07);
+      --l-thumb: #eceae4;
+    }
+  }
+  body:not(.lab-open) .lab { display: none; }
+  @media (min-width: 900px) {
+    body.lab-open { padding-right: 332px; }
+  }
+  @media (max-width: 899px) {
+    .lab {
+      top: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: auto;
+      max-height: 48dvh;
+      border-radius: 16px 16px 0 0;
+      padding-bottom: max(20px, env(safe-area-inset-bottom));
+    }
+    body.lab-open .site { padding-bottom: 52dvh; }
+  }
+
+  .lab-fab {
+    position: fixed;
+    z-index: 10;
+    right: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    padding: 9px 14px;
+    border: 0;
+    border-radius: 999px;
+    background: #1b1d22;
+    color: #fff;
+    font: 600 13px -apple-system, BlinkMacSystemFont, sans-serif;
+    box-shadow: 0 6px 20px rgb(0 0 0 / .2);
+    cursor: pointer;
+  }
+  body.lab-open .lab-fab { display: none; }
+
+  .lab-head { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+  .lab-head h2 { margin: 0 auto 0 0; font-size: 13px; font-weight: 650; }
+  .lab button {
+    padding: 5px 9px;
+    border: 0;
+    border-radius: 7px;
+    background: var(--l-chip);
+    color: inherit;
+    font: inherit;
+    font-weight: 550;
+    cursor: pointer;
+  }
+  .lab button:hover { background: var(--l-line); }
+  .lab .actions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+
+  .lab h3 {
+    margin: 16px 0 6px;
+    padding-top: 12px;
+    border-top: 1px solid var(--l-line);
+    font-size: 11px;
+    font-weight: 650;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--l-muted);
+  }
+  .lab h4 { margin: 8px 0 2px; font-size: 11px; font-weight: 600; color: var(--l-muted); }
+
+  .presets { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .presets button { display: flex; align-items: center; gap: 7px; padding: 5px; text-align: left; }
+  .presets button[aria-pressed="true"] { box-shadow: inset 0 0 0 1.5px var(--l-fg); }
+  .note { margin: 8px 0 0; color: var(--l-muted); min-height: 3em; }
+
+  .swatch {
+    flex: none;
+    display: grid;
+    gap: 2px;
+    width: 30px;
+    padding: 4px;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 1px rgb(0 0 0 / .06);
+  }
+  .swatch i { display: block; height: 3px; border-radius: 1px; }
+
+  .readout { margin: 10px 0 0; padding: 7px 9px; border-radius: 7px; background: var(--l-chip); }
+  .readout b { font-weight: 650; }
+  .readout .warn { color: #c2410c; }
+
+  .row {
+    display: grid;
+    grid-template-columns: 88px 1fr 42px;
+    align-items: center;
+    gap: 8px;
+    min-height: 24px;
+  }
+  .row span { color: var(--l-muted); }
+  .row output { text-align: right; font-variant-numeric: tabular-nums; }
+
+  .lab input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    margin: 0;
+    border-radius: 2px;
+    background: var(--l-line);
+    cursor: pointer;
+  }
+  .lab input[type="range"].hue { height: 6px; border-radius: 3px; background: var(--rainbow); }
+  .lab input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--l-thumb);
+    box-shadow: 0 0 0 1px rgb(0 0 0 / .25), 0 1px 3px rgb(0 0 0 / .2);
+  }
+  .lab input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--l-thumb);
+    box-shadow: 0 0 0 1px rgb(0 0 0 / .25), 0 1px 3px rgb(0 0 0 / .2);
+  }
+
+  .app-head { display: flex; align-items: center; gap: 7px; margin: 10px 0 2px; font-weight: 600; }
+  .app-head img { width: 16px; height: 16px; border-radius: 4px; }
+  .app-head .dot { width: 12px; height: 12px; margin-left: auto; border-radius: 3px; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .1); }
+  .app-tools { display: flex; gap: 6px; margin-top: 10px; }
+
+  .saved { display: flex; flex-wrap: wrap; gap: 6px; }
+  .saved .chip { position: relative; padding: 4px; }
+  .saved .chip .x {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 10px;
+    line-height: 15px;
+    background: var(--l-fg);
+    color: var(--l-bg);
+    display: none;
+  }
+  .saved .chip:hover .x { display: block; }
+  .empty { color: var(--l-muted); }
+  .hint { margin-top: 14px; color: var(--l-muted); }
+</style>
+</head>
+<body class="lab-open">
+
+<main class="site">
+  <header class="intro">
+    <h1>Brian Meise</h1>
+    <p>I make apps. I’m always curious and sometimes a goof.</p>
+  </header>
+
+  <section class="projects">
+    <h2>Projects</h2>
+    <ul class="cards">
+      <li>
+        <!-- Store links: the iOS apps carry Apple's campaign token ct=brianmeise
+             (pt is the account's provider token, the same one the product
+             sites use), so App Store Connect counts arrivals from this page
+             separately. Not-So-Fast tags utm_source for the Chrome Web Store
+             dashboard. data-goatcounter-click counts the tap on the way out.
+             DMB 24/7 has no store; its site is the app. -->
+        <a class="card" href="https://apps.apple.com/app/apple-store/id6809014456?pt=129208576&amp;ct=brianmeise&amp;mt=8" data-goatcounter-click="store-northern-sky">
+          <img class="icon" src="img/northern-sky.png" alt="" width="54" height="54">
+          <h3 class="name">Northern Sky</h3>
+          <span class="kind">iOS App</span>
+          <p class="desc">A morning check-in app to get your day started off right.</p>
+        </a>
+      </li>
+      <li>
+        <a class="card" href="https://apps.apple.com/app/apple-store/id6793750166?pt=129208576&amp;ct=brianmeise&amp;mt=8" data-goatcounter-click="store-green-onions">
+          <img class="icon" src="img/green-onions.png" alt="" width="54" height="54">
+          <h3 class="name">Green Onions</h3>
+          <span class="kind">iOS App</span>
+          <p class="desc">A music player for runners that makes the beat meet your feet.</p>
+        </a>
+      </li>
+      <li>
+        <a class="card" href="https://chromewebstore.google.com/detail/not-so-fast-learn-before/chcjindoknafacbmdabhllmbhgkenjei?utm_source=brianmeise.com" data-goatcounter-click="store-not-so-fast">
+          <img class="icon" src="img/not-so-fast.png" alt="" width="54" height="54">
+          <h3 class="name">Not-So-Fast</h3>
+          <span class="kind">Chrome App</span>
+          <p class="desc">Learn something before visiting time wasting sites.</p>
+        </a>
+      </li>
+      <li>
+        <a class="card" href="https://dmb247.com" data-goatcounter-click="site-dmb247">
+          <img class="icon" src="img/dmb247.png" alt="" width="54" height="54">
+          <h3 class="name">DMB 24/7</h3>
+          <span class="kind">Web App</span>
+          <p class="desc">Drops you into a random live Dave Matthews Band show.</p>
+        </a>
+      </li>
+      <li>
+        <!-- SIGN-UP: goes to the Google Sheet "brianmeise.com sign-ups" in
+             mastermeise@gmail.com's Drive, through the Apps Script web app in
+             v5/signup-sheet.gs (deployed 2026-10-20 as "Sign-up form on
+             brianmeise.com"; redeploy as a new version to keep this URL). The script below posts in the background and
+             swaps the card to "Boom! Talk soon."; a GoatCounter "signup" event
+             counts successes. The "website" field is a honeypot for bots. -->
+        <div class="card signup" data-state="idle">
+          <h3 class="name" id="signup-title"><span class="lead">More soon.</span> Stay in the know.</h3>
+          <form class="signup-form" action="https://script.google.com/macros/s/AKfycbztt5Dz523RERxm7XFSV8L2w6j3a7BFj0-tLZ3MSzWRFW16gUeAZg77XEN6c0MFPTME/exec" method="post" aria-labelledby="signup-title">
+            <label class="visually-hidden" for="signup-email">Email address</label>
+            <input id="signup-email" type="email" name="email_address" placeholder="Your email" autocomplete="email" required>
+            <div class="hp" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
+            <button type="submit">Notify me</button>
+          </form>
+          <p class="signup-note" role="status"></p>
+          <p class="signup-thanks" aria-hidden="true"><span><span class="lead">Boom!</span> Talk soon.</span></p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- The address opens a new email; the button beside it copies the
+       address instead, for people whose mail lives in a browser. The year
+       is filled in by the script; the one written here is for no-JS. -->
+  <footer class="contact">
+    <p class="contact-row">
+      <a class="email" href="mailto:mastermeise@gmail.com">mastermeise@gmail.com</a>
+      <button class="copy" type="button" aria-label="Copy email address" title="Copy">
+        <svg class="idle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11.5" height="11.5" rx="2.5"/><path d="M15 9V6.5A2.5 2.5 0 0 0 12.5 4h-6A2.5 2.5 0 0 0 4 6.5v6A2.5 2.5 0 0 0 6.5 15H9"/></svg>
+        <svg class="done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+      </button>
+    </p>
+    <p class="copyright">© <span class="year">2026</span> Brian Meise</p>
+    <p class="visually-hidden" role="status"></p>
+  </footer>
+</main>
+
+<button class="lab-fab" type="button">Colors</button>
+<aside class="lab" aria-label="Color lab"></aside>
+
+<script>
+/* ---- Color lab --------------------------------------------------------
+   Every color is OKLCH: L (lightness 0–1), C (chroma, how colorful),
+   H (hue angle). Cards share one L and C; only their hue differs, and
+   "App hue" slides each card's hue from the page's hue (0%, one family)
+   to its own app's hue (100%). Colors are gamut-mapped to sRGB
+   here, so what you see is exactly what "Copy CSS" hands you. */
+
+const APPS = [
+  { name: 'Northern Sky', icon: 'img/northern-sky.png', hue: 258 },
+  { name: 'Green Onions', icon: 'img/green-onions.png', hue: 130 },
+  { name: 'Not-So-Fast', icon: 'img/not-so-fast.png', hue: 213 },
+  { name: 'DMB 24/7', icon: 'img/dmb247.png', hue: 50 },
+  { name: 'Sign-up', icon: null, hue: 310 },
+];
+
+const BASE = {
+  bgH: 95, bgL: .975, bgC: .008, bgGL: 0, bgGH: 0, bgAng: 180,
+  spread: 1, cL: .93, cC: .045, cA: 1, blur: 0,
+  cGL: 0, cGH: 0, cAng: 135,
+  glow: 0, border: 0, shadow: 0, radius: 14,
+  inkC: .02, soft: .5, wBold: 760, wText: 450,
+  h0: 258, l0: 0, c0: 0,
+  h1: 130, l1: 0, c1: 0,
+  h2: 213, l2: 0, c2: 0,
+  h3: 50, l3: 0, c3: 0,
+  h4: 310, l4: .07, c4: -.045,   // the sign-up card: +.07 lightness, no chroma = white
+};
+
+const PRESETS = [
+  { name: 'Your pick', note: 'Your pick (2026-10-20): Even tints, grey text at 86%, Host Grotesk at 760 bold / 450 text.',
+    s: { soft: .86 } },
+  { name: 'Mockup', note: 'Your mockup as drawn. Card lightness runs .85 → .92 and the yellow has twice the chroma of the blue, so each card shouts at a different volume.',
+    s: { bgH: 167, bgL: .905, bgC: .041, cL: .877, cC: .055, radius: 10, inkC: 0, soft: .7,
+         h0: 246, l0: -.017, c0: -.02, h1: 112, l1: .047, c1: .026, h2: 208, l2: -.029, c2: -.005 } },
+  { name: 'Even tints', note: 'Each card takes its icon’s hue, all at one lightness and chroma, on a near-neutral page. The simplest fix.',
+    s: {} },
+  { name: 'Mint, fixed', note: 'Keeps your mint page, but the cards go lighter than it at one shared chroma, so they float on it instead of fighting it.',
+    s: { bgH: 167, bgL: .925, bgC: .035, bgGL: .025, bgGH: -12, cL: .968, cC: .028, inkC: .025 } },
+  { name: 'Close cousins', note: 'Card hues pulled halfway toward the page, so the three read as one cool family and still hint at their apps. Faint gradients.',
+    s: { bgH: 185, bgL: .95, bgC: .03, bgGL: -.025, bgGH: 25, spread: .45, cL: .905, cC: .05, cGL: .02, cGH: -10, inkC: .025 } },
+  { name: 'Sand + glow', note: 'Cards are the page’s own color. Each icon casts a soft glow of its hue into its corner, so the color comes from the apps.',
+    s: { bgH: 80, bgL: .962, bgC: .016, spread: 0, cL: .99, cC: .008, glow: .45, border: .35, radius: 16 } },
+  { name: 'Paper', note: 'Color only in the icons: warm paper, white cards, a hairline and a little lift.',
+    s: { bgH: 75, bgL: .955, bgC: .012, spread: 0, cL: .997, cC: .004, border: .5, shadow: .35, radius: 12, inkC: .015 } },
+  { name: 'Dawn glass', note: 'Northern Sky’s sky as the page, blue down to a warm horizon, with frosted cards over it.',
+    s: { bgH: 256, bgL: .8, bgC: .1, bgGL: .14, bgGH: -170, spread: 0, cL: 1, cC: 0, cA: .55, blur: 16, glow: .2, border: .25, shadow: .3, radius: 18, inkC: .03 } },
+  { name: 'Night', note: 'A dark take: navy page, cards one step lighter in their app hues, icons glowing.',
+    s: { bgH: 262, bgL: .2, bgC: .035, bgGL: .04, spread: .7, cL: .275, cC: .04, glow: .5, border: .35, radius: 16, inkC: .02, soft: .4 } },
+];
+
+// [key, label, min, max, step, kind]; a bare string is a subheading.
+const SCHEMA = [
+  ['Page', [
+    ['bgH', 'Hue', 0, 360, 1, 'hue'],
+    ['bgL', 'Lightness', .1, 1, .005],
+    ['bgC', 'Chroma', 0, .16, .002],
+    'Gradient',
+    ['bgGL', 'Lightness', -.2, .2, .005, 'signed'],
+    ['bgGH', 'Hue shift', -180, 180, 1, 'deg'],
+    ['bgAng', 'Angle', 0, 360, 5, 'deg'],
+  ]],
+  ['Cards', [
+    ['spread', 'App hue', 0, 1, .01, 'pct'],
+    ['cL', 'Lightness', .1, 1, .005],
+    ['cC', 'Chroma', 0, .16, .002],
+    ['cA', 'Opacity', .1, 1, .01, 'pct'],
+    ['blur', 'Frost', 0, 30, 1, 'px'],
+    ['glow', 'Icon glow', 0, 1, .01, 'pct'],
+    ['border', 'Hairline', 0, 1, .01, 'pct'],
+    ['shadow', 'Shadow', 0, 1, .01, 'pct'],
+    ['radius', 'Corners', 0, 28, 1, 'px'],
+    'Gradient',
+    ['cGL', 'Lightness', -.12, .12, .005, 'signed'],
+    ['cGH', 'Hue shift', -90, 90, 1, 'deg'],
+    ['cAng', 'Angle', 0, 360, 5, 'deg'],
+  ]],
+  ['Text', [
+    ['inkC', 'Ink tint', 0, .08, .002],
+    ['soft', 'Grey text', 0, 1, .01, 'pct'],
+    ['wBold', 'Bold weight', 500, 800, 10, 'int'],
+    ['wText', 'Text weight', 300, 600, 10, 'int'],
+  ]],
+];
+const APP_ROWS = i => [
+  ['h' + i, 'Hue', 0, 360, 1, 'hue'],
+  ['l' + i, 'Lightness ±', -.1, .1, .002, 'signed'],
+  ['c' + i, 'Chroma ±', -.06, .06, .002, 'signed'],
+];
+
+/* ---- OKLCH → sRGB ---- */
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+function oklchToLinear(L, C, H) {
+  const h = H * Math.PI / 180, a = C * Math.cos(h), b = C * Math.sin(h);
+  const l = (L + .3963377774 * a + .2158037573 * b) ** 3;
+  const m = (L - .1055613458 * a - .0638541728 * b) ** 3;
+  const s = (L - .0894841775 * a - 1.291485548 * b) ** 3;
+  return [
+    4.0767416621 * l - 3.3077115913 * m + .2309699292 * s,
+    -1.2684380046 * l + 2.6097574011 * m - .3413193965 * s,
+    -.0041960863 * l - .7034186147 * m + 1.707614701 * s,
+  ];
+}
+const inGamut = v => v.every(x => x >= -1e-4 && x <= 1 + 1e-4);
+const encode = x => x <= .0031308 ? 12.92 * x : 1.055 * x ** (1 / 2.4) - .055;
+// Out-of-gamut colors keep their lightness and hue and lose chroma.
+function col(L, C, H, a = 1) {
+  L = clamp(L); C = Math.max(0, C); H = ((H % 360) + 360) % 360;
+  let lin = oklchToLinear(L, C, H);
+  if (!inGamut(lin)) {
+    let lo = 0, hi = C;
+    for (let i = 0; i < 16; i++) {
+      const mid = (lo + hi) / 2;
+      inGamut(oklchToLinear(L, mid, H)) ? lo = mid : hi = mid;
+    }
+    lin = oklchToLinear(L, lo, H);
+  }
+  return { rgb: lin.map(x => Math.round(clamp(encode(clamp(x))) * 255)), a: clamp(a) };
+}
+const css = c => c.a < 1 ? `rgb(${c.rgb.join(' ')} / ${+c.a.toFixed(3)})` : `rgb(${c.rgb.join(' ')})`;
+const hex = c => '#' + c.rgb.map(x => x.toString(16).padStart(2, '0')).join('').toUpperCase()
+  + (c.a < 1 ? Math.round(c.a * 255).toString(16).padStart(2, '0').toUpperCase() : '');
+const lum = c => {
+  const [r, g, b] = c.rgb.map(x => { x /= 255; return x <= .04045 ? x / 12.92 : ((x + .055) / 1.055) ** 2.4; });
+  return .2126 * r + .7152 * g + .0722 * b;
+};
+const over = (top, under) => ({ rgb: top.rgb.map((x, i) => Math.round(x * top.a + under.rgb[i] * (1 - top.a))), a: 1 });
+const contrast = (fg, bg) => { const [a, b] = [lum(fg), lum(bg)].sort((x, y) => y - x); return (a + .05) / (b + .05); };
+const mixHue = (from, to, t) => from + ((((to - from) % 360) + 540) % 360 - 180) * t;
+
+/* ---- Everything the page shows, from one state ---- */
+function compute(s) {
+  const page1 = col(s.bgL, s.bgC, s.bgH);
+  const page2 = col(s.bgL + s.bgGL, s.bgC, s.bgH + s.bgGH);
+  const pageL = s.bgL + s.bgGL / 2;
+  const inks = (dark, H) => dark
+    ? [col(.97, s.inkC * .5, H), col(.97 - s.soft * .34, s.inkC * .6, H)]
+    : [col(.2, s.inkC, H), col(.2 + s.soft * .36, s.inkC * 1.2, H)];
+  const [ink, soft] = inks(pageL < .6, s.bgH);
+  const cards = APPS.map((_, i) => {
+    const L = clamp(s.cL + s['l' + i]), C = Math.max(0, s.cC + s['c' + i]);
+    const H = mixHue(s.bgH, s['h' + i], s.spread);
+    const fill = col(L, C, H, s.cA), fill2 = col(L + s.cGL, C, H + s.cGH, s.cA);
+    const dark = L * s.cA + pageL * (1 - s.cA) + s.cGL / 2 < .6;
+    const [cInk, cSoft] = inks(dark, H);
+    const glow = dark ? col(Math.min(L + .16, .72), .13, s['h' + i], s.glow * .7)
+                      : col(.8, .14, s['h' + i], s.glow * .7);
+    // A card as light as the page would vanish, so it gets a faint edge.
+    const near = clamp(1 - Math.abs(L * s.cA + pageL * (1 - s.cA) - pageL) / .05);
+    const edgeA = Math.max(s.border, near * .7) * .16;
+    const edge = dark ? col(1, 0, 0, edgeA) : col(.25, .03, H, edgeA);
+    const shade = col(.3, .06, H);
+    return { fill, fill2, cInk, cSoft, glow, edge, shade, solid: over(fill, page1) };
+  });
+  return { page1, page2, ink, soft, cards };
+}
+
+/* ---- State, persisted in the hash ---- */
+let S = { ...BASE };
+let activePreset = null;
+const cardEls = [...document.querySelectorAll('.card')];
+const root = document.documentElement.style;
+
+function render() {
+  const k = compute(S);
+  root.setProperty('--page', css(k.page1));
+  root.setProperty('--page-2', css(k.page2));
+  root.setProperty('--page-angle', S.bgAng + 'deg');
+  root.setProperty('--ink', css(k.ink));
+  root.setProperty('--ink-soft', css(k.soft));
+  root.setProperty('--radius', S.radius);
+  root.setProperty('--w-bold', S.wBold);
+  root.setProperty('--w-text', S.wText);
+  const pageDark = S.bgL + S.bgGL / 2 < .6;
+  root.setProperty('--slot-edge', pageDark ? 'rgb(255 255 255 / .2)' : `rgb(${k.ink.rgb.join(' ')} / .16)`);
+  root.setProperty('--field', pageDark ? 'rgb(255 255 255 / .08)' : 'rgb(255 255 255 / .75)');
+  root.setProperty('--card-angle', S.cAng + 'deg');
+  root.setProperty('--card-blur', S.blur ? `blur(${S.blur}px) saturate(1.3)` : 'none');
+  document.querySelector('meta[name=theme-color]')?.setAttribute('content', hex(k.page1));
+  k.cards.forEach((c, i) => {
+    const st = cardEls[i].style;
+    st.setProperty('--card', css(c.fill));
+    st.setProperty('--card-2', css(c.fill2));
+    st.setProperty('--glow', css(c.glow));
+    st.setProperty('--card-ink', css(c.cInk));
+    st.setProperty('--card-soft', css(c.cSoft));
+    st.setProperty('--card-edge', `inset 0 0 0 1px ${css(c.edge)}`);
+    st.setProperty('--card-shadow', S.shadow
+      ? `0 1px 2px rgb(${c.shade.rgb.join(' ')} / ${(S.shadow * .1).toFixed(3)}), 0 14px 32px -12px rgb(${c.shade.rgb.join(' ')} / ${(S.shadow * .4).toFixed(3)})`
+      : '0 0 #0000');
+  });
+  syncPanel(k);
+  saveHash();
+}
+
+let hashTimer;
+function saveHash() {
+  clearTimeout(hashTimer);
+  hashTimer = setTimeout(() => {
+    const p = new URLSearchParams();
+    for (const key in BASE) if (S[key] !== BASE[key]) p.set(key, +(+S[key]).toFixed(4));
+    history.replaceState(null, '', p.toString() ? '#' + p : location.pathname);
+  }, 150);
+}
+function loadHash() {
+  const p = new URLSearchParams(location.hash.slice(1));
+  if (![...p.keys()].length) return false;
+  S = { ...BASE };
+  for (const [key, v] of p) if (key in BASE && isFinite(+v)) S[key] = +v;
+  const i = PRESETS.findIndex(pr => Object.keys(BASE).every(key => Math.abs(({ ...BASE, ...pr.s })[key] - S[key]) < 1e-4));
+  activePreset = i < 0 ? null : i;
+  return true;
+}
+
+/* ---- Panel ---- */
+const lab = document.querySelector('.lab');
+const fmt = (kind, v) => ({
+  hue: Math.round(v) + '°', deg: Math.round(v) + '°', px: Math.round(v) + 'px',
+  pct: Math.round(v * 100) + '%', int: String(Math.round(v)),
+  signed: (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(3).replace(/^0/, ''),
+}[kind] ?? (+v).toFixed(3).replace(/^0/, ''));
+
+function row([key, label, min, max, step, kind]) {
+  return `<label class="row"><span>${label}</span>
+    <input type="range" class="${kind === 'hue' ? 'hue' : ''}" data-key="${key}" data-kind="${kind || ''}"
+      min="${min}" max="${max}" step="${step}"><output></output></label>`;
+}
+const swatch = k => `<span class="swatch" style="background:linear-gradient(${css(k.page1)},${css(k.page2)})">
+  ${k.cards.map(c => `<i style="background:${css(c.solid)}"></i>`).join('')}</span>`;
+
+lab.innerHTML = `
+  <div class="lab-head"><h2>Color lab</h2><button type="button" data-act="hide" title="Hide (H)">Hide</button></div>
+  <div class="actions">
+    <button type="button" data-act="shuffle">Shuffle</button>
+    <button type="button" data-act="save">Save</button>
+    <button type="button" data-act="css">Copy CSS</button>
+    <button type="button" data-act="link">Copy link</button>
+  </div>
+  <div class="presets">${PRESETS.map((p, i) =>
+    `<button type="button" data-preset="${i}" aria-pressed="false">${swatch(compute({ ...BASE, ...p.s }))}${p.name}</button>`).join('')}</div>
+  <p class="note"></p>
+  <div class="readout"></div>
+  ${SCHEMA.map(([title, rows]) => `<h3>${title}</h3>` +
+    rows.map(r => typeof r === 'string' ? `<h4>${r}</h4>` : row(r)).join('')).join('')}
+  <h3>Per app</h3>
+  ${APPS.map((a, i) => `<div class="app-head">${a.icon ? `<img src="${a.icon}" alt="">` : ''}${a.name}<span class="dot"></span></div>
+    ${APP_ROWS(i).map(row).join('')}`).join('')}
+  <div class="app-tools">
+    <button type="button" data-act="hues">Use icon hues</button>
+    <button type="button" data-act="even">Clear ± offsets</button>
+  </div>
+  <h3>Sign-up card</h3>
+  <div class="app-tools">
+    <button type="button" data-signup="idle">Form</button>
+    <button type="button" data-signup="sending">Sending</button>
+    <button type="button" data-signup="done">Thanks</button>
+    <button type="button" data-signup="error">Error</button>
+  </div>
+  <h3>Saved</h3>
+  <div class="saved"></div>
+  <p class="hint">App hue: 0% gives every card the page’s hue, 100% gives each card its own app’s hue. H hides the panel; the URL always holds the current combo.</p>`;
+
+const inputs = [...lab.querySelectorAll('input[type=range]')];
+function syncPanel(k) {
+  for (const el of inputs) {
+    if (document.activeElement !== el) el.value = S[el.dataset.key];
+    el.nextElementSibling.textContent = fmt(el.dataset.kind, S[el.dataset.key]);
+  }
+  lab.querySelectorAll('.app-head .dot').forEach((d, i) => d.style.background = css(k.cards[i].solid));
+  lab.querySelectorAll('[data-preset]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.preset === activePreset)));
+  lab.querySelector('.note').textContent = activePreset != null
+    ? PRESETS[activePreset].note
+    : 'Edited. Save it to keep it next to the others, or Copy link.';
+  // Worst-case contrast: the bio against both ends of the page, and each
+  // card's grey text against both ends of its own fill.
+  const bio = Math.min(contrast(k.soft, k.page1), contrast(k.soft, k.page2));
+  const desc = Math.min(...k.cards.flatMap(c => [
+    contrast(c.cSoft, over(c.fill, k.page1)), contrast(c.cSoft, over(c.fill2, k.page2))]));
+  const mark = r => r >= 4.5 ? `<b>${r.toFixed(1)}:1</b>` : `<b class="warn">${r.toFixed(1)}:1 low</b>`;
+  lab.querySelector('.readout').innerHTML = `Grey text contrast: bio ${mark(bio)} · cards ${mark(desc)}`;
+}
+
+lab.addEventListener('input', e => {
+  const el = e.target;
+  if (!el.dataset.key) return;
+  S[el.dataset.key] = +el.value;
+  activePreset = null;
+  render();
+});
+
+function applyPreset(i) {
+  S = { ...BASE, ...PRESETS[i].s };
+  activePreset = i;
+  render();
+}
+
+function shuffle() {
+  const r = (a, b) => a + Math.random() * (b - a);
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const spread = pick([0, .35, .6, 1]);
+  const n = { ...BASE, bgH: Math.round(r(0, 360)), bgL: r(.93, .98), bgC: r(.006, .04), spread, radius: pick([10, 14, 18]) };
+  if (spread === 0) Object.assign(n, { cL: clamp(n.bgL + r(.012, .03), 0, .995), cC: r(0, .012), glow: r(.25, .5), border: r(0, .5) });
+  else Object.assign(n, { cL: r(.88, .95), cC: r(.025, .065) });
+  if (Math.random() < .5) Object.assign(n, { bgGL: r(-.03, .03), bgGH: Math.round(r(-40, 40)) });
+  if (Math.random() < .4) Object.assign(n, { cGL: r(.01, .04), cGH: Math.round(r(-25, 25)) });
+  for (const key of ['bgL', 'bgC', 'cL', 'cC', 'glow', 'border', 'bgGL', 'cGL']) n[key] = +n[key].toFixed(3);
+  S = n;
+  activePreset = null;
+  render();
+}
+
+function copyCSS() {
+  const k = compute(S);
+  const slug = n => n.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const lines = [
+    `/* v5 palette: ${location.href} */`,
+    `:root {`,
+    `  --page: ${hex(k.page1)};`,
+    ...(S.bgGL || S.bgGH ? [`  --page-2: ${hex(k.page2)};  /* gradient end, ${S.bgAng}deg */`] : []),
+    `  --ink: ${hex(k.ink)};`,
+    `  --ink-soft: ${hex(k.soft)};`,
+    `  --radius: ${S.radius}px;`,
+    `}`,
+    ...k.cards.map((c, i) => [
+      `.card.${slug(APPS[i].name)} {`,
+      `  --card: ${hex(c.fill)};`,
+      ...(S.cGL || S.cGH ? [`  --card-2: ${hex(c.fill2)};  /* gradient end, ${S.cAng}deg */`] : []),
+      ...(S.glow ? [`  --glow: ${hex(c.glow)};`] : []),
+      `  --card-ink: ${hex(c.cInk)};`,
+      `  --card-soft: ${hex(c.cSoft)};`,
+      `}`].join('\n')),
+  ];
+  return lines.join('\n');
+}
+
+async function copy(text, btn) {
+  const was = btn.textContent;
+  try { await navigator.clipboard.writeText(text); btn.textContent = 'Copied'; }
+  catch { btn.textContent = 'Copy failed'; }
+  setTimeout(() => btn.textContent = was, 1200);
+}
+
+/* ---- Saved combos (this browser only) ---- */
+const STORE = 'v5-color-lab';
+const readSaved = () => { try { return JSON.parse(localStorage.getItem(STORE)) || []; } catch { return []; } };
+const writeSaved = list => { try { localStorage.setItem(STORE, JSON.stringify(list)); } catch {} };
+function renderSaved() {
+  const list = readSaved();
+  lab.querySelector('.saved').innerHTML = list.length
+    ? list.map((s, i) => `<button type="button" class="chip" data-saved="${i}" title="Load">${swatch(compute({ ...BASE, ...s }))}
+        <span class="x" data-unsave="${i}" title="Remove">×</span></button>`).join('')
+    : '<span class="empty">Nothing yet. “Save” keeps the current combo here.</span>';
+}
+
+lab.addEventListener('click', e => {
+  const t = e.target.closest('button, .x');
+  if (!t) return;
+  if (t.dataset.unsave != null) {
+    e.stopPropagation();
+    const list = readSaved(); list.splice(+t.dataset.unsave, 1); writeSaved(list); renderSaved();
+    return;
+  }
+  if (t.dataset.signup) return t.dataset.signup === 'error' ? setSignup('idle', SIGNUP_ERROR) : setSignup(t.dataset.signup);
+  if (t.dataset.preset != null) return applyPreset(+t.dataset.preset);
+  if (t.dataset.saved != null) { S = { ...BASE, ...readSaved()[+t.dataset.saved] }; activePreset = null; return render(); }
+  switch (t.dataset.act) {
+    case 'hide': return setOpen(false);
+    case 'shuffle': return shuffle();
+    case 'save': writeSaved([...readSaved(), { ...S }].slice(-24)); renderSaved(); return;
+    case 'css': return copy(copyCSS(), t);
+    case 'link': saveHash(); return setTimeout(() => copy(location.href, t), 160);
+    case 'hues': APPS.forEach((a, i) => S['h' + i] = a.hue); activePreset = null; return render();
+    case 'even': APPS.forEach((_, i) => { S['l' + i] = 0; S['c' + i] = 0; }); activePreset = null; return render();
+  }
+});
+
+function setOpen(open, remember = true) {
+  document.body.classList.toggle('lab-open', open);
+  if (remember) try { localStorage.setItem(STORE + '-open', open ? '1' : '0'); } catch {}
+}
+document.querySelector('.lab-fab').addEventListener('click', () => setOpen(true));
+document.addEventListener('keydown', e => {
+  if (e.key.toLowerCase() !== 'h' || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.target.matches('input:not([type=range]), textarea')) return;
+  setOpen(!document.body.classList.contains('lab-open'));
+});
+
+/* ---- Footer: the copy button, and a year that keeps itself current ---- */
+document.querySelector('.year').textContent = new Date().getFullYear();
+const copyBtn = document.querySelector('.copy');
+let copyTimer;
+copyBtn.addEventListener('click', async () => {
+  const link = document.querySelector('.email');
+  const status = document.querySelector('.contact [role=status]');
+  try {
+    await navigator.clipboard.writeText(link.href.replace('mailto:', ''));
+  } catch {
+    // No clipboard (e.g. plain http): select the address so it's one Cmd-C away.
+    getSelection().selectAllChildren(link);
+    return;
+  }
+  copyBtn.classList.add('is-done');
+  status.textContent = 'Email address copied';
+  clearTimeout(copyTimer);
+  copyTimer = setTimeout(() => { copyBtn.classList.remove('is-done'); status.textContent = ''; }, 1600);
+});
+
+/* ---- Sign-up ----
+   Posts to the Google Sheet's Apps Script in the background so the card can
+   say "Boom! Talk soon." in place. URL-encoded, so it's a "simple" request
+   with no CORS preflight; Apps Script redirects to googleusercontent, which
+   answers {"status":"success"} with CORS open. */
+const signup = document.querySelector('.card.signup');
+const signupForm = signup.querySelector('.signup-form');
+function setSignup(state, note = '') {
+  signup.dataset.state = state;
+  signup.querySelector('.signup-note').textContent =
+    state === 'done' ? 'Boom! Talk soon. You’re on the list.' : note;
+  signup.querySelector('.signup-note').classList.toggle('visually-hidden', state === 'done');
+}
+const SIGNUP_ERROR = 'That didn’t go through. Try again?';
+signupForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  if (signupForm.action.includes('YOUR_DEPLOYMENT_ID')) return setSignup('idle', 'Not connected yet: this needs the Google Sheet’s script URL.');
+  setSignup('sending');
+  try {
+    const res = await fetch(signupForm.action, { method: 'POST', body: new URLSearchParams(new FormData(signupForm)) });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || data.status !== 'success') throw new Error(res.status);
+    setSignup('done');
+    window.goatcounter?.count?.({ path: 'signup', title: 'Sign-up', event: true });
+  } catch {
+    setSignup('idle', SIGNUP_ERROR);
+  }
+});
+
+/* ---- Start: a shared link wins, otherwise Brian's pick ---- */
+let openPref = null;
+try { openPref = localStorage.getItem(STORE + '-open'); } catch {}
+setOpen(openPref ? openPref === '1' : matchMedia('(min-width: 900px)').matches, false);
+if (!loadHash()) { S = { ...BASE, ...PRESETS[0].s }; activePreset = 0; }
+renderSaved();
+render();
+</script>
+
+<script data-goatcounter="https://mastermeise.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
