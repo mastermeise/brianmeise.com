@@ -5,6 +5,10 @@ email sign-up, and contact details. Plain static files on GitHub Pages (repo
 `mastermeise/brianmeise.com`, branch `main`). The hosting, DNS and analytics setup
 shared by all of Brian's sites is in `~/Dev/claude/CLAUDE.md`.
 
+**Design system:** this page's tokens, type, components, mark and app icons are collected as the
+"Brian Meise" design system, https://claude.ai/artifact/GZZuc4iJ2WSGPBoHEAMCJb (private), for reuse in
+Brian's other projects. If you change a token here, change it there too.
+
 **Deploying:** push to `main`. Pages publishes it within a minute or two; check with
 `gh api repos/mastermeise/brianmeise.com/pages/builds/latest --jq .status,.commit`.
 
