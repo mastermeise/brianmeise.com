@@ -1,5 +1,17 @@
 # TODO: Personal Site Redesign
 
+> **2026-10-20: v5 is the live homepage**: name, bio, a card per project (store
+> links), an email sign-up that goes to a Google Sheet, and the email/copyright footer.
+> Built and colour-tuned at `/v5/`; README.md documents how it works. Everything below
+> about v0.5, v1, the peeks, the icon labs and the Kit newsletter is history now (v1
+> stays parked at `/v1.html`; sign-ups no longer use Kit or `/subscribed/`).
+>
+> **Open for v5:**
+> - [ ] Email address: keep `mastermeise@gmail.com`, or switch to a `@brianmeise.com`
+>       Workspace address (one `href` and the visible text in `index.html`).
+> - [ ] Not-So-Fast's label says "Chrome App"; it's really a Chrome extension.
+> - [ ] Maybe one line under the sign-up saying what the email is for.
+
 > **STALE — 2026-08-05.** Phases 1–5 below were written for the poster direction with a
 > signature hero and a work-history section. That build was replaced in one pass: the site
 > is now `index.html` + `styles.css`, clean/neutral, bio + projects only. See the banners in
