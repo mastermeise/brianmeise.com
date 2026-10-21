@@ -27,14 +27,14 @@ is a size container (`--u: calc(100cqi / 343)`). Type, icons and padding all gro
 with the column's width, so every line breaks at the same word on every screen:
 
 - every project description is exactly two lines, so all cards are the same height;
-- the bio breaks after "curious";
+- the bio, "I make apps. Always curious, sometimes a goof.", breaks after "curious,";
 - app names and the sign-up headline stay on one line.
 
 On desktop the column stops at `--max: 440px`, about 1.28x the phone size. **Any
 change to the font, a weight, a size or the copy can move a line break**, so check
-at 375px and 1440px afterwards. Measured windows for Host Grotesk at 760: the bio
-breaks after "curious" anywhere from 21.3u to 24.3u, the sign-up headline fits on
-one line up to 24.3u, and the app names up to 26.4u. The 320px first-generation
+at 375px and 1440px afterwards. Measured windows for Host Grotesk at 760, with the
+big type at 22.5u: the bio breaks after "curious," anywhere from 19.1u to 26.8u, the
+sign-up headline fits on one line up to 24.3u, and the app names up to 26.4u. The 320px first-generation
 iPhone SE gets everything at about 0.84x (descriptions about 12.6px).
 
 **Colour.** A near-neutral page (`#F8F7F1`), and each card tinted with its app
