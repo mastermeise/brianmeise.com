@@ -1,6 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
-  <!-- brianmeise.com — the site's two inks: accent ground, wine letter.
-       The "B" is drawn geometry, not a font outline. -->
-  <rect width="1024" height="1024" fill="#F4602C"/>
-  <path fill="#45091E" fill-rule="evenodd" d="M273,157 L475,157 C593,157 688,227 688,313 C688,399 630,469 559,469 C665,469 751,546 751,642 C751,766 627,867 475,867 L273,867 Z M431,267 L475,267 C521,267 559,300 559,340 C559,381 521,414 475,414 L431,414 Z M431,524 L475,524 C553,524 616,574 616,636 C616,697 553,747 475,747 L431,747 Z"/>
+  <!-- brianmeise.com: the four project-card colours as stripes, top to bottom
+       in page order (Northern Sky, Green Onions, Not-So-Fast, DMB 24/7), under
+       a "B" from Host Grotesk ExtraBold (the site's face; OFL) in the page ink.
+       The PNGs and /favicon.ico are rasterised from this; regenerate, don't
+       hand-edit (recipe in README.md). -->
+  <clipPath id="tile"><rect width="1024" height="1024" rx="230"/></clipPath>
+  <g clip-path="url(#tile)">
+    <rect y="0" width="1024" height="256" fill="#DAE9FF"/>
+    <rect y="256" width="1024" height="256" fill="#DEEECF"/>
+    <rect y="512" width="1024" height="256" fill="#C7F0FA"/>
+    <rect y="768" width="1024" height="256" fill="#FFE1D1"/>
+  </g>
+  <path fill="#19160B" transform="translate(219.0 839.7) scale(0.9362 -0.9362)" d="M47 0V700H338Q411 700 461.0 677.5Q511 655 537.0 614.5Q563 574 563 520Q563 467 540.0 431.0Q517 395 479.5 376.0Q442 357 397 353L413 364Q461 363 498.5 339.0Q536 315 557.5 276.0Q579 237 579 191Q579 135 552.0 91.5Q525 48 473.5 24.0Q422 0 348 0ZM187 114H326Q379 114 408.0 138.0Q437 162 437 208Q437 253 407.0 279.0Q377 305 324 305H187ZM187 409H315Q366 409 393.0 432.5Q420 456 420 499Q420 541 393.5 564.5Q367 588 314 588H187Z"/>
 </svg>

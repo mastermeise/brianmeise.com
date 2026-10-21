@@ -2,24 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <!-- ======================================================================
-     VERSION 0.5 — the deliberate placeholder homepage: one ink, no
-     mentions/peeks/doodles/links, footer is a single mailto. The full
-     direction lives at /v1.html (noindexed) and in the labs
-     (/copylab.html, /iconlab.html); promote it here when it's polished.
+     brianmeise.com, live since 2026-10-20. Promoted from the v5 side page
+     (/v5/, which keeps the colour lab used to pick these colours). This is
+     the same page with the lab stripped out and the chosen palette written
+     in as fixed values; to try colour changes, use /v5/ and copy the result
+     back here. README.md documents the layout rules, the sign-up sheet and
+     the favicon.
      ====================================================================== -->
 
 <title>Brian Meise</title>
-<meta name="description" content="Brian Meise is the Director of Product Design at Sony Music.">
-<meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#45091E">
+<meta name="description" content="I make apps. I’m always curious and sometimes a goof. Northern Sky, Green Onions, Not-So-Fast and DMB 24/7.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#F8F7F1">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://brianmeise.com/">
 <meta property="og:title" content="Brian Meise">
-<meta property="og:description" content="Director of Product Design at Sony Music.">
+<meta property="og:description" content="I make apps. I’m always curious and sometimes a goof.">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://brianmeise.com/">
@@ -27,31 +29,393 @@
 <link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/img/favicon-16.png" sizes="16x16" type="image/png">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-<link rel="stylesheet" href="styles.css?v=2">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300..800&display=swap">
+
 <style>
-  /* One ink: everything — name, bio, footer — in the accent red-orange on
-     the wine. Hierarchy is nothing but word order. */
-  h1, .bio, .bio strong { color: var(--accent); }
-  footer, footer a, footer a:hover { color: var(--accent); }
+  /* Palette: Brian's pick in the v5 lab ("Even tints", grey text 86%).
+     Every card shares one lightness and chroma and differs only in hue,
+     taken from its app icon. Two weights: --w-bold for the big type,
+     --w-text for the grey text. */
+  :root {
+    --page: #F8F7F1;
+    --ink: #19160B;
+    --ink-soft: #6A6657;
+    --w-bold: 760;
+    --w-text: 450;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--page);
+    color: var(--ink);
+    font-family: "Host Grotesk", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Everything inside the column is sized in --u: one pixel of the design
+     at a 343px column (a 375px phone minus its gutters). Type, icons and
+     padding all scale with the column's width, so every line breaks at the
+     same word on every screen: each description is always two lines and
+     the bio always breaks after "curious". Desktop is the phone layout
+     scaled up to --max (about 1.28x). Changing the font, a weight or any
+     copy can move a line break; re-check at 375px and 1440px. */
+  .site {
+    --max: 440px;
+    --u: calc(100cqi / 343);
+    max-width: calc(var(--max) + 32px);
+    margin: 0 auto;
+    padding: max(env(safe-area-inset-top), clamp(40px, 9vh, 104px)) 16px 72px;
+    container-type: inline-size;
+  }
+
+  /* The big type: name, bio, "Projects", app names, the sign-up headline,
+     the email and the copyright are all one size and weight. Hierarchy is
+     colour only: ink, or the grey for the second line of a pair. */
+  .intro h1,
+  .intro p,
+  .projects h2,
+  .name,
+  .signup-thanks,
+  .email,
+  .copyright {
+    margin: 0;
+    font-size: calc(22.5 * var(--u));
+    font-weight: var(--w-bold);
+    line-height: 1.32;
+    letter-spacing: -.012em;
+  }
+  .intro p { color: var(--ink-soft); }
+  .projects h2 { margin: calc(36 * var(--u)) 0 calc(14 * var(--u)); }
+
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: calc(12 * var(--u)); }
+  .card {
+    display: grid;
+    grid-template-columns: calc(54 * var(--u)) 1fr auto;
+    grid-template-areas: "icon name kind" "icon desc desc";
+    column-gap: calc(16 * var(--u));
+    padding: calc(14 * var(--u)) calc(16 * var(--u)) calc(16 * var(--u)) calc(14 * var(--u));
+    border-radius: calc(14 * var(--u));
+    background: var(--card);
+    color: var(--card-ink);
+    text-decoration: none;
+    transition: transform .18s cubic-bezier(.2, .8, .2, 1);
+  }
+  .card.northern-sky { --card: #DAE9FF; --card-ink: #10161F; --card-soft: #5E6774; }
+  .card.green-onions { --card: #DEEECF; --card-ink: #13180E; --card-soft: #61695B; }
+  .card.not-so-fast  { --card: #C7F0FA; --card-ink: #0B181B; --card-soft: #576A6E; }
+  .card.dmb247       { --card: #FFE1D1; --card-ink: #1E130E; --card-soft: #72625A; }
+  .card.signup       { --card: #FFFFFF; --card-ink: var(--ink); --card-soft: var(--ink-soft); }
+  @media (hover: hover) {
+    a.card:hover { transform: translateY(-2px); }
+  }
+  a.card:active { transform: scale(.985); }
+  .card:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) {
+    .card { transition: none; }
+    a.card:hover, a.card:active { transform: none; }
+  }
+
+  .icon {
+    grid-area: icon;
+    width: calc(54 * var(--u));
+    height: calc(54 * var(--u));
+    border-radius: 23%;
+    box-shadow: 0 0 0 .5px rgb(0 0 0 / .12);
+  }
+  .name { grid-area: name; align-self: baseline; }
+  .kind {
+    grid-area: kind;
+    align-self: baseline;
+    padding-left: calc(12 * var(--u));
+    font-size: calc(15 * var(--u));
+    font-weight: var(--w-text);
+    white-space: nowrap;
+    color: var(--card-soft);
+  }
+  .desc {
+    grid-area: desc;
+    min-height: 3.1em;
+    margin: calc(3 * var(--u)) 0 0;
+    font-size: calc(15 * var(--u));
+    font-weight: var(--w-text);
+    line-height: 1.55;
+    color: var(--card-soft);
+    text-wrap: balance;
+  }
+
+  /* The sign-up card: white, with a faint edge so it doesn't melt into the
+     near-white page, and just a centred headline over the form. */
+  .card.signup {
+    position: relative;
+    grid-template-columns: 1fr;
+    grid-template-areas: "name" "form";
+    box-shadow: inset 0 0 0 1px rgb(25 22 11 / .06);
+  }
+  .card.signup:has(.signup-note:not(:empty)) { grid-template-areas: "name" "form" "note"; }
+  .card.signup .name { text-align: center; }
+  .lead { color: var(--card-soft); }
+  .signup-form {
+    grid-area: form;
+    display: flex;
+    gap: calc(8 * var(--u));
+    margin-top: calc(12 * var(--u));
+  }
+  .signup-form input {
+    flex: 1;
+    min-width: 0;
+    height: calc(44 * var(--u));
+    padding: 0 calc(12 * var(--u));
+    border: 0;
+    border-radius: calc(10 * var(--u));
+    background: rgb(255 255 255 / .75);
+    box-shadow: inset 0 0 0 1px rgb(25 22 11 / .16);
+    color: var(--ink);
+    font: inherit;
+    font-size: max(16px, calc(15 * var(--u)));
+  }
+  .signup-form input::placeholder { color: var(--ink-soft); opacity: .8; }
+  .signup-form input:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+  .signup-form button {
+    flex: none;
+    height: calc(44 * var(--u));
+    padding: 0 calc(16 * var(--u));
+    border: 0;
+    border-radius: calc(10 * var(--u));
+    background: var(--ink);
+    color: var(--page);
+    font: inherit;
+    font-size: calc(15 * var(--u));
+    font-weight: calc(var(--w-bold) - 100);
+    cursor: pointer;
+    transition: transform .12s ease-out;
+  }
+  .signup-form button:active { transform: scale(.97); }
+  .signup-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .signup-note {
+    grid-area: note;
+    margin: calc(8 * var(--u)) 0 0;
+    font-size: calc(13 * var(--u));
+    text-align: center;
+    color: var(--ink-soft);
+  }
+  .signup-note:empty { display: none; }
+
+  /* States: idle (the form), sending (the button dims), done ("Boom! Talk
+     soon." centred over the card; the headline and form stay in the layout
+     but invisible, so the card keeps its exact height). */
+  .signup-thanks {
+    position: absolute;
+    inset: 0;
+    display: none;
+    place-items: center;
+    padding: 0 calc(16 * var(--u));
+    text-align: center;
+  }
+  .card.signup[data-state="sending"] .signup-form button { opacity: .5; pointer-events: none; }
+  .card.signup[data-state="done"] > .name,
+  .card.signup[data-state="done"] > .signup-form { visibility: hidden; }
+  .card.signup[data-state="done"] .signup-thanks {
+    display: grid;
+    animation: signup-in .35s cubic-bezier(.2, .8, .2, 1) both;
+  }
+  @keyframes signup-in { from { opacity: 0; scale: .96; } }
+  @media (prefers-reduced-motion: reduce) { .signup-thanks { animation: none !important; } }
+
+  /* Footer, centred: the address (a mailto, so it opens a new email) with
+     a copy button hanging off its right edge, so the address itself sits on
+     the centre line. The copyright is the grey line below. */
+  .contact { margin-top: calc(48 * var(--u)); text-align: center; }
+  .contact-row { position: relative; display: inline-block; margin: 0; }
+  .email {
+    display: inline-block;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: .08em;
+    text-underline-offset: .18em;
+    text-decoration-color: color-mix(in oklab, var(--ink) 30%, transparent);
+    transition: text-decoration-color .15s ease-out;
+  }
+  .copy {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    translate: 0 -50%;
+    display: grid;
+    place-items: center;
+    width: calc(40 * var(--u));
+    height: calc(40 * var(--u));
+    margin-left: calc(2 * var(--u));
+    padding: 0;
+    border: 0;
+    border-radius: calc(10 * var(--u));
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: color .15s ease-out, background-color .15s ease-out, scale .12s ease-out;
+  }
+  @media (hover: hover) {
+    .email:hover { text-decoration-color: var(--ink); }
+    .copy:hover { color: var(--ink); background: color-mix(in oklab, var(--ink) 7%, transparent); }
+  }
+  .copy:active { scale: .9; }
+  .copy:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+  .copy svg { width: calc(20 * var(--u)); height: calc(20 * var(--u)); }
+  .copy .done, .copy.is-done .idle { display: none; }
+  .copy.is-done .done { display: block; }
+  .copy.is-done { color: var(--ink); }
+  .copyright { margin-top: calc(20 * var(--u)); color: var(--ink-soft); }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 </style>
 </head>
 <body>
 
-<main>
-
-  <div class="intro">
+<main class="site">
+  <header class="intro">
     <h1>Brian Meise</h1>
-    <p class="bio">
-      Dad. Designer. Director of Product Design at Sony&nbsp;Music.
-      Sometimes a goof, always curious.
+    <p>I make apps. I’m always curious and sometimes a goof.</p>
+  </header>
+
+  <section class="projects">
+    <h2>Projects</h2>
+    <ul class="cards">
+      <!-- Store links: the iOS apps carry Apple's campaign token ct=brianmeise
+           (pt is the account's provider token, the same one the product sites
+           use), so App Store Connect counts arrivals from this page on their
+           own. Not-So-Fast tags utm_source for the Chrome Web Store dashboard.
+           data-goatcounter-click counts each tap on the way out. DMB 24/7 has
+           no store; its site is the app. -->
+      <li>
+        <a class="card northern-sky" href="https://apps.apple.com/app/apple-store/id6809014456?pt=129208576&amp;ct=brianmeise&amp;mt=8" data-goatcounter-click="store-northern-sky">
+          <img class="icon" src="/img/apps/northern-sky.png" alt="" width="54" height="54">
+          <h3 class="name">Northern Sky</h3>
+          <span class="kind">iOS App</span>
+          <p class="desc">A morning check-in app to get your day started off right.</p>
+        </a>
+      </li>
+      <li>
+        <a class="card green-onions" href="https://apps.apple.com/app/apple-store/id6793750166?pt=129208576&amp;ct=brianmeise&amp;mt=8" data-goatcounter-click="store-green-onions">
+          <img class="icon" src="/img/apps/green-onions.png" alt="" width="54" height="54">
+          <h3 class="name">Green Onions</h3>
+          <span class="kind">iOS App</span>
+          <p class="desc">A music player for runners that makes the beat meet your feet.</p>
+        </a>
+      </li>
+      <li>
+        <a class="card not-so-fast" href="https://chromewebstore.google.com/detail/not-so-fast-learn-before/chcjindoknafacbmdabhllmbhgkenjei?utm_source=brianmeise.com" data-goatcounter-click="store-not-so-fast">
+          <img class="icon" src="/img/apps/not-so-fast.png" alt="" width="54" height="54">
+          <h3 class="name">Not-So-Fast</h3>
+          <span class="kind">Chrome App</span>
+          <p class="desc">Learn something before visiting time wasting sites.</p>
+        </a>
+      </li>
+      <li>
+        <a class="card dmb247" href="https://dmb247.com" data-goatcounter-click="site-dmb247">
+          <img class="icon" src="/img/apps/dmb247.png" alt="" width="54" height="54">
+          <h3 class="name">DMB 24/7</h3>
+          <span class="kind">Web App</span>
+          <p class="desc">Drops you into a random live Dave Matthews Band show.</p>
+        </a>
+      </li>
+      <li>
+        <!-- SIGN-UP: each email becomes a row in the Google Sheet "brianmeise.com
+             sign-ups" (mastermeise@gmail.com's Drive), through the Apps Script
+             web app in v5/signup-sheet.gs. The script below posts in the
+             background and swaps the card to "Boom! Talk soon."; a GoatCounter
+             "signup" event counts successes. "website" is a honeypot for bots.
+             To change the script, redeploy as a new version of the same
+             deployment so this URL stays the same. -->
+        <div class="card signup" data-state="idle">
+          <h3 class="name" id="signup-title"><span class="lead">More soon.</span> Stay in the know.</h3>
+          <form class="signup-form" action="https://script.google.com/macros/s/AKfycbztt5Dz523RERxm7XFSV8L2w6j3a7BFj0-tLZ3MSzWRFW16gUeAZg77XEN6c0MFPTME/exec" method="post" aria-labelledby="signup-title">
+            <label class="visually-hidden" for="signup-email">Email address</label>
+            <input id="signup-email" type="email" name="email_address" placeholder="Your email" autocomplete="email" required>
+            <div class="hp" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
+            <button type="submit">Notify me</button>
+          </form>
+          <p class="signup-note" role="status"></p>
+          <p class="signup-thanks" aria-hidden="true"><span><span class="lead">Boom!</span> Talk soon.</span></p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- The address opens a new email; the button beside it copies the
+       address instead, for people whose mail lives in a browser. The year
+       is filled in by the script; the one written here is for no-JS. -->
+  <footer class="contact">
+    <p class="contact-row">
+      <a class="email" href="mailto:mastermeise@gmail.com">mastermeise@gmail.com</a>
+      <button class="copy" type="button" aria-label="Copy email address" title="Copy">
+        <svg class="idle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11.5" height="11.5" rx="2.5"/><path d="M15 9V6.5A2.5 2.5 0 0 0 12.5 4h-6A2.5 2.5 0 0 0 4 6.5v6A2.5 2.5 0 0 0 6.5 15H9"/></svg>
+        <svg class="done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+      </button>
     </p>
-  </div>
-
-  <footer>
-    <a href="mailto:mastermeise@gmail.com">mastermeise@gmail.com</a>
+    <p class="copyright">© <span class="year">2026</span> Brian Meise</p>
+    <p class="visually-hidden" role="status"></p>
   </footer>
-
 </main>
+
+<script>
+/* ---- Footer: the copy button, and a year that keeps itself current ---- */
+document.querySelector('.year').textContent = new Date().getFullYear();
+const copyBtn = document.querySelector('.copy');
+let copyTimer;
+copyBtn.addEventListener('click', async () => {
+  const link = document.querySelector('.email');
+  const status = document.querySelector('.contact [role=status]');
+  try {
+    await navigator.clipboard.writeText(link.href.replace('mailto:', ''));
+  } catch {
+    // No clipboard: select the address so it's one Cmd-C away.
+    getSelection().selectAllChildren(link);
+    return;
+  }
+  copyBtn.classList.add('is-done');
+  status.textContent = 'Email address copied';
+  clearTimeout(copyTimer);
+  copyTimer = setTimeout(() => { copyBtn.classList.remove('is-done'); status.textContent = ''; }, 1600);
+});
+
+/* ---- Sign-up ----
+   Posts to the Google Sheet's Apps Script in the background. URL-encoded,
+   so it's a "simple" request with no CORS preflight; Apps Script redirects
+   to googleusercontent, which answers {"status":"success"} (or "failed"
+   for a bad address) with CORS open. */
+const signup = document.querySelector('.card.signup');
+const signupForm = signup.querySelector('.signup-form');
+const signupNote = signup.querySelector('.signup-note');
+function setSignup(state, note = '') {
+  signup.dataset.state = state;
+  signupNote.textContent = state === 'done' ? 'Boom! Talk soon. You’re on the list.' : note;
+  signupNote.classList.toggle('visually-hidden', state === 'done');
+}
+signupForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  setSignup('sending');
+  try {
+    const res = await fetch(signupForm.action, { method: 'POST', body: new URLSearchParams(new FormData(signupForm)) });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || data.status !== 'success') throw new Error(res.status);
+    setSignup('done');
+    window.goatcounter?.count?.({ path: 'signup', title: 'Sign-up', event: true });
+  } catch {
+    setSignup('idle', 'That didn’t go through. Try again?');
+  }
+});
+</script>
 
 <script data-goatcounter="https://mastermeise.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
