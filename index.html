@@ -43,8 +43,8 @@
     --page: #F8F7F1;
     --ink: #19160B;
     --ink-soft: #6A6657;
-    --w-bold: 760;
-    --w-text: 450;
+    --w-bold: 620;
+    --w-text: 490;
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
@@ -87,8 +87,8 @@
     margin: 0;
     font-size: calc(22.5 * var(--u));
     font-weight: var(--w-bold);
-    line-height: 1.32;
-    letter-spacing: -.012em;
+    line-height: 1.22;
+    letter-spacing: 0;
   }
   .intro p { color: var(--ink-soft); }
   .projects h2 { margin: calc(36 * var(--u)) 0 calc(14 * var(--u)); }
@@ -191,7 +191,7 @@
     color: var(--page);
     font: inherit;
     font-size: calc(15 * var(--u));
-    font-weight: calc(var(--w-bold) - 100);
+    font-weight: max(500, calc(var(--w-bold) - 100));
     cursor: pointer;
     transition: transform .12s ease-out;
   }

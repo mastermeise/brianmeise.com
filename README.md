@@ -15,9 +15,10 @@ Everything is in the one file: inline CSS and two small scripts, with no build s
 
 **Type.** Host Grotesk from Google Fonts, loaded as the variable font
 (`wght@300..800`). There are two weights and two sizes. The "big type" is 22.5u at
-weight 760 (`--w-bold`): the name, the bio, "Projects", the app names, the sign-up
-headline, the email and the copyright. The "grey text" is 15u at weight 450
-(`--w-text`): descriptions and platform labels. Hierarchy comes from colour only,
+weight 620 (`--w-bold`), with no letter spacing and a 1.22 line height: the name, the
+bio, "Projects", the app names, the sign-up headline, the email and the copyright.
+The "grey text" is 15u at weight 490 (`--w-text`): descriptions and platform labels.
+Brian set these on 2026-10-21 in the lab, starting from Djinn's screen-title style. Hierarchy comes from colour only,
 ink or grey, never from size or weight. Pairs read dark then grey: name over bio,
 "More soon." over "Stay in the know.", email over copyright.
 
@@ -32,9 +33,12 @@ with the column's width, so every line breaks at the same word on every screen:
 
 On desktop the column stops at `--max: 440px`, about 1.28x the phone size. **Any
 change to the font, a weight, a size or the copy can move a line break**, so check
-at 375px and 1440px afterwards. Measured windows for Host Grotesk at 760, with the
-big type at 22.5u: the bio breaks after "curious," anywhere from 19.1u to 26.8u, the
-sign-up headline fits on one line up to 24.3u, and the app names up to 26.4u. The 320px first-generation
+at 375px and 1440px afterwards. Measured windows for Host Grotesk at 620 with no letter spacing:
+the bio breaks after "curious," anywhere from 18.6u to 26.1u, the sign-up headline fits
+on one line up to 23.7u, and the app names up to 25.5u. **The email row is the tight
+one:** the address plus its copy button fits up to 22.4u, so at 22.5u the button's
+transparent tap area overhangs the column by about 0.3px (invisible, no scroll). Don't
+make the big type any bigger without shrinking that row's needs first. The 320px first-generation
 iPhone SE gets everything at about 0.84x (descriptions about 12.6px).
 
 **Colour.** A near-neutral page (`#F8F7F1`), and each card tinted with its app
@@ -123,7 +127,7 @@ Fonts serves). The favicon is shared by every page on the site, old ones include
 
 | Path | What it is |
 |---|---|
-| `/v5/` | The colour lab for this design: the same page plus a panel of OKLCH sliders, presets, saved combos, Copy CSS and a shareable hash. Its "Your pick" preset is what's live. Noindexed, unlinked. |
+| `/v5/` | The lab for this design: the same page plus a panel with OKLCH colour sliders and presets, a font switcher (Host Grotesk, Poppins, Instrument Sans, DM Sans, Red Hat Display, Inter, Anton names), sliders for big-type size, weights, tracking and line height, a "Djinn titles" button, a live layout check of the rules above, saved combos, Copy CSS and a shareable hash. Its "Your pick" colours and its default type are what's live. Noindexed, unlinked. |
 | `/v1.html`, `/copylab.html`, `/iconlab.html` | The parked v1 direction and its labs. Noindexed. |
 | `/graveyard/` | Retired projects (2017 site, Fonzi, …). |
 | `/2017/`, `/archive/` | Old site relics. |
